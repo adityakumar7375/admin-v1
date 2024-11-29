@@ -1,16 +1,8 @@
 <?php
 
+// routes/administrator.php
+
 use Illuminate\Support\Facades\Route;
-
-require __DIR__.'/administrator.php';
-
-
-
-
-
-
-
-/*
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 
@@ -30,5 +22,3 @@ Route::middleware('check.session')->group(function () {
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     
 });
-
-*/

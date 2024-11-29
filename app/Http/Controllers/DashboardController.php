@@ -29,21 +29,18 @@ class DashboardController extends Controller
     public function index()
     {
 
-        $type='';
-        if(!empty($_GET['filter'])){
-            $type=$_GET['filter'];
-        }
-
-        $senddata = ['latitude'=>$this->cacheService->get('latitude'),'longitude'=>$this->cacheService->get('longitude'),'type' =>$type,'range'=>'today'];
-        $webData = $this->apiService->GetDataApi('/session/dashboard',$senddata,session('userToken'));
-       
+        $webData = $this->cacheService->get('web');
         if ($webData) {
-            $data['data']= $webData;
-            return view('user.dashboard.index',$data);
-        }else{
-            echo $webData; die;
-            return view('user.dashboard.index');
+            $data['web']=$webData;
+        } else {
+            $webData = $this->apiService->getWebsiteDetails('access/getWebsiteDetails');
+            $this->cacheService->set('web',$webData, 120);
+            $data['web']=$webData;
         }
+        $senddata = ['latitude'=>$this->cacheService->get('latitude'),'longitude'=>$this->cacheService->get('longitude'),'agent'=>$this->cacheService->get('agent'),'type' =>"",'range'=>'today'];
+        $webData = $this->apiService->GetDataApi('/session/dashboard',$senddata,session('userToken'));
+        $data['data']= $webData;
+        return view('user.dashboard.index',$data);
         
     }
     // dashboard_data

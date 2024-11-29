@@ -72,7 +72,7 @@
                             src="{{asset('/ui')}}/assets/images/logo/logo_light.png" alt="" /></a></div>
             </div>
             <div class="col-4 col-xl-4 page-title">
-                <h4 class="f-w-700">{{$webData['data']['companyName']}}</h4>
+                <h4 class="f-w-700">{{@$webData['data']['companyName']}}</h4>
             </div>
             <!-- Page Header Start-->
             <div class="header-wrapper col m-0">

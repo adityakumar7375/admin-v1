@@ -41,6 +41,16 @@
     <link rel="stylesheet" type="text/css" href="{{asset('/ui')}}/assets/css/responsive.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/ui')}}/assets/css/loader.css">
     <script>
+    if (localStorage.getItem("agent") == "" || localStorage.getItem("agent") == null) {
+        const userAgent = navigator.userAgent;
+        var agentValue = getAgentName(userAgent);
+        localStorage.setItem("agent", agentValue);
+    } else {
+        console.log("Agent found in localStorage:", localStorage.getItem("agent"));
+    }
+
+    // end
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             function(position) {
@@ -49,6 +59,27 @@
                 //localStorage.setItem(cacheKey, JSON.stringify(response));
                 localStorage.setItem('lat', lat);
                 localStorage.setItem('lng', lng);
+                // set lat - long
+
+                fetch('/save-location', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify({
+                            latitude: lat,
+                            longitude: lng,
+                            agent: localStorage.getItem("agent")
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Location saved:', data);
+                    })
+                    .catch(error => {
+                        // console.error('Error saving location:', error);
+                    });
 
             },
             function(error) {
@@ -61,8 +92,34 @@
     }
     localStorage.setItem("base_url", "{{@$webData['data']['baseUrl']}}");
 
-    // const a = localStorage.getItem('base_url');
-    // alert(a);
+    // user ajent
+    function getAgentName(agentName) {
+        let browserName = 'Unknown';
+        let version = '';
+
+        const browsers = {
+            'Firefox': /Firefox\/([0-9\.]+)/,
+            'Brave': /Brave\/([0-9\.]+)/,
+            'Edge': /Edg\/([0-9\.]+)/,
+            'Chrome': /Chrome\/([0-9\.]+)/,
+            'Safari': /Safari\/([0-9\.]+)/,
+            'IE': /MSIE ([0-9\.]+);/,
+            'Postman': /PostmanRuntime\/([0-9\.]+)/
+        };
+
+        for (let name in browsers) {
+            const regex = browsers[name];
+            const matches = agentName.match(regex);
+
+            if (matches) {
+                browserName = name;
+                version = matches[1] || ''; // Extract version number
+                break;
+            }
+        }
+
+        return browserName + version;
+    }
     </script>
     <style>
     .parsley-required {
@@ -196,6 +253,25 @@
                 // Store the lat and lng in localStorage
                 localStorage.setItem('lat', lat);
                 localStorage.setItem('lng', lng);
+                fetch('/save-location', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify({
+                            latitude: lat,
+                            longitude: lng,
+                            agent: localStorage.getItem("agent")
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Location saved:', data);
+                    })
+                    .catch(error => {
+                        // console.error('Error saving location:', error);
+                    });
                 callback(true);
             }, function(error) {
                 if (error.code === error.PERMISSION_DENIED) {
@@ -234,6 +310,7 @@
                     });
                     sendData['latitude'] = localStorage.getItem('lat');
                     sendData['longitude'] = localStorage.getItem('lng');
+                    sendData['agent'] = localStorage.getItem('agent');
 
                     const response = SendServerRequest(url, sendData);
                 } else {
@@ -252,7 +329,7 @@
             });
             sendData['latitude'] = localStorage.getItem('lat');
             sendData['longitude'] = localStorage.getItem('lng');
-
+            sendData['agent'] = localStorage.getItem('agent');
             const response = SendServerRequest(url, sendData);
         }
     });
@@ -273,7 +350,7 @@
         sendData['longitude'] = localStorage.getItem('lng');
         sendData['token'] = localStorage.getItem('otp_token');
         sendData['mobile'] = $("#mobile_data").val();
-
+        sendData['agent'] = localStorage.getItem('agent');
         const response = SendServerRequest(url, sendData);
     });
 
@@ -286,7 +363,7 @@
         sendData['latitude'] = localStorage.getItem('lat');
         sendData['longitude'] = localStorage.getItem('lng');
         sendData['mobile'] = $("#mobile_data").val();
-
+        sendData['agent'] = localStorage.getItem('agent');
         const response = SendServerRequest(url, sendData);
 
     }
@@ -296,6 +373,7 @@
     function processResponse(data) {
         $(".waiting").hide();
         console.log(data);
+        const msg = data.message;
         if (data.errorCode == 200) {
             // set data
             localStorage.setItem('user', JSON.stringify(data.data));
@@ -356,7 +434,12 @@
 
         }
         if (data.errorCode == 400) {
-
+            iziToast.show({
+                icon: 'fa fa-check',
+                color: 'red',
+                message: msg,
+                position: 'topCenter',
+            });
         }
     }
 

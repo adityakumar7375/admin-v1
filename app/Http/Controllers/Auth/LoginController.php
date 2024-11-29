@@ -25,9 +25,11 @@ class LoginController extends Controller
         $validated = $request->validate([
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
+            'agent' => 'required',
         ]);
         $this->cacheService->set('latitude',$validated['latitude'], 1200);
         $this->cacheService->set('longitude',$validated['longitude'], 1200);
+        $this->cacheService->set('agent',$validated['agent'], 1200);
     }
     
     public function index(Request $request)
@@ -36,7 +38,6 @@ class LoginController extends Controller
         if (session('user') || session('userToken')) {
             return redirect()->route('dashboard');
         }
-        // $this->cacheService->delete('web');
         $webData = $this->cacheService->get('web');
         if ($webData) {
             $data['web']=$webData;
@@ -46,9 +47,11 @@ class LoginController extends Controller
             $data['web']=$webData;
         }
         
-        if($data['web']['errorCode']==200){
+        if(@$data['web']['errorCode']==200){
             $this->cacheService->set('baseUrl',$data['web']['data']['baseUrl'],120);
             return view('login.index');
+        }else{
+            $this->cacheService->delete('web');
         }
         abort(500, 'Something went wrong!');
     }
@@ -242,6 +245,7 @@ class LoginController extends Controller
         $result=json_decode(base64_decode($data));
         session(['userToken' =>$result->data->userToken]);
         session(['user' =>$result->data]);
+        $this->cacheService->delete('web');
         return redirect()->route('dashboard');
     }
 }
