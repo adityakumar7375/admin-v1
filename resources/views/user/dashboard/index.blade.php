@@ -5,653 +5,1218 @@
      <div class="col-md-12 project-list">
          <div class="card">
              <div class="row">
-                 <div class="col-md-12 text-right">
+                 <div class="col-md-8 text-left">
                      <div class="form-check radio radio-primary ps-0">
-                         @foreach(@$data['data']['type'] as $key=>$value)
-                         <a href="{{url('dashboard?filter='.$value)}}"><button
-                                 class="btn button-light-warning btn-sm b-r-8">{{$value}}
-                             </button></a>
-                         @endforeach
-                     </div>
-                 </div>
-
-             </div>
-         </div>
-     </div>
-     <div class="col-xl-6 col-md-12 proorder-md-1">
-         <div class="row">
-             <div class="col-xl-6 col-sm-6">
-                 <div class="card">
-                     <div class="card-body student">
-                         <div class="d-flex gap-2 align-items-end">
-                             <div class="flex-grow-1">
-                                 <h2>{{@$data['data']['total']['success']}}</h2>
-                                 <p class="mb-0 text-truncate"> Total Success</p>
-                                 <div class="d-flex student-arrow text-truncate">
-                                     <p class="mb-0 up-arrow bg-light-danger"><i
-                                             class="icon-arrow-down font-danger"></i></p><span
-                                         class="f-w-500 font-danger">- 17.06%</span>than last 6 Month
-                                 </div>
+                         <div class="form-check-size rtl-input">
+                             <div class="form-check form-check-inline">
+                                 <input class="form-check-input me-2" id="inlineRadio1" onclick="filterDashboard()"
+                                     type="radio" name="radio" value="today" checked="">
+                                 <label class="form-check-label" for="inlineRadio1">Today</label>
                              </div>
-                             <div class="flex-shrink-0"><img
-                                     src="{{asset('/ui')}}/assets/images/dashboard-4/icon/student.png" alt="">
+                             <div class="form-check form-check-inline">
+                                 <input class="form-check-input me-2" id="inlineRadio2" onclick="filterDashboard()"
+                                     type="radio" name="radio" value="weekly">
+                                 <label class="form-check-label" for="inlineRadio2">Weekly</label>
+                             </div>
+                             <div class="form-check form-check-inline">
+                                 <input class="form-check-input me-2" id="inlineRadio3" onclick="filterDashboard()"
+                                     type="radio" name="radio" value="monthly">
+                                 <label class="form-check-label" for="inlineRadio3">Monthly</label>
                              </div>
                          </div>
                      </div>
                  </div>
-             </div>
-             <div class="col-xl-6 col-sm-6">
-                 <div class="card">
-                     <div class="card-body student-2">
-                         <div class="d-flex gap-2 align-items-end">
-                             <div class="flex-grow-1">
-                                 <h2>{{@$data['data']['total']['successCount']}}</h2>
-                                 <p class="mb-0 text-truncate"> Success Count</p>
-                                 <div class="d-flex student-arrow text-truncate">
-                                     <p class="mb-0 up-arrow bg-light-success"><i
-                                             class="icon-arrow-up font-success"></i></p><span
-                                         class="f-w-500 font-success">+27.02%</span>than last 4 Month
-                                 </div>
-                             </div>
-                             <div class="flex-shrink-0"><img
-                                     src="{{asset('/ui')}}/assets/images/dashboard-4/icon/teacher.png" alt="">
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-             <div class="col-xl-6 col-sm-6">
-                 <div class="card">
-                     <div class="card-body student-3">
-                         <div class="d-flex gap-2 align-items-end">
-                             <div class="flex-grow-1">
-                                 <h2>{{@$data['data']['total']['failed']}}</h2>
-                                 <p class="mb-0 text-truncate"> Failed</p>
-                                 <div class="d-flex student-arrow text-truncate">
-                                     <p class="mb-0 up-arrow bg-light-success"><i
-                                             class="icon-arrow-up font-success"></i></p><span
-                                         class="f-w-500 font-success">+ 12.01%</span>than last 8
-                                     Month
-                                 </div>
-                             </div>
-                             <div class="flex-shrink-0"><img
-                                     src="{{asset('/ui')}}/assets/images/dashboard-4/icon/calendar.png" alt="">
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-             <div class="col-xl-6 col-sm-6">
-                 <div class="card">
-                     <div class="card-body student-4">
-                         <div class="d-flex gap-2 align-items-end">
-                             <div class="flex-grow-1">
-                                 <h2>{{@$data['data']['total']['failedCount']}}</h2>
-                                 <p class="mb-0 text-truncate">Failed Count</p>
-                                 <div class="d-flex student-arrow text-truncate">
-                                     <p class="mb-0 up-arrow bg-light-danger"><i
-                                             class="icon-arrow-down font-danger"></i></p><span
-                                         class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
-                                 </div>
-                             </div>
-                             <div class="flex-shrink-0"><img
-                                     src="{{asset('/ui')}}/assets/images/dashboard-4/icon/invoice.png" alt="">
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-
-
-             <div class="col-xl-6 col-sm-6">
-                 <div class="card">
-                     <div class="card-body student-4">
-                         <div class="d-flex gap-2 align-items-end">
-                             <div class="flex-grow-1">
-                                 <h2>{{@$data['data']['total']['pending']}}</h2>
-                                 <p class="mb-0 text-truncate">Pending</p>
-                                 <div class="d-flex student-arrow text-truncate">
-                                     <p class="mb-0 up-arrow bg-light-danger"><i
-                                             class="icon-arrow-down font-danger"></i></p><span
-                                         class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
-                                 </div>
-                             </div>
-                             <div class="flex-shrink-0"><img
-                                     src="{{asset('/ui')}}/assets/images/dashboard-4/icon/invoice.png" alt="">
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-
-
-             <div class="col-xl-6 col-sm-6">
-                 <div class="card">
-                     <div class="card-body student-4">
-                         <div class="d-flex gap-2 align-items-end">
-                             <div class="flex-grow-1">
-                                 <h2>{{@$data['data']['total']['pendingCount']}}</h2>
-                                 <p class="mb-0 text-truncate">Pending Count</p>
-                                 <div class="d-flex student-arrow text-truncate">
-                                     <p class="mb-0 up-arrow bg-light-danger"><i
-                                             class="icon-arrow-down font-danger"></i></p><span
-                                         class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
-                                 </div>
-                             </div>
-                             <div class="flex-shrink-0"><img
-                                     src="{{asset('/ui')}}/assets/images/dashboard-4/icon/invoice.png" alt="">
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-
-
-
-
-         </div>
-     </div>
-     <div class="col-xl-6 col-md-6 proorder-md-2">
-         <div class="card">
-             <div class="card-header">
-                 <h4>Bar chart 2</h4>
-             </div>
-             <div class="card-body">
-
-                 <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-
-             </div>
-         </div>
-     </div>
-
-
-
-     <!-- walletTotal -->
-
-
-
-
-
-
-
-
-
-
-
-     <div class="col-xl-12 col-md-12 proorder-md-4">
-         <div class="card">
-             <div class="card-header card-no-border pb-0">
-                 <div class="header-top">
-                     <h4>Wallet Total</h4>
-                     <div class="dropdown icon-dropdown">
-                         <button class="btn dropdown-toggle" id="userdropdown1" type="button" data-bs-toggle="dropdown"
-                             aria-expanded="false"><i class="icon-more-alt"></i></button>
-                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown1"><a
-                                 class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
-                                 href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
-                     </div>
-                 </div>
-             </div>
-             <div class="card-body pt-0 assignments-table px-0">
-                 <div class="table-responsive theme-scrollbar">
-                     <table class="table display" id="assignments-table" style="width:100%">
-                         <thead>
-                             <tr>
-
-                                 <th>Sno </th>
-                                 <th>Role Name</th>
-                                 <th>User Count </th>
-                                 <th>Total Balance</th>
-                                 <th>Total V Balance</th>
-                                 <th>Total Cashback</th>
-                                 <th>Total Credit Balance</th>
-                             </tr>
-                         </thead>
-                         <tbody>
-                             @if(!empty($data['data']['walletTotal']))
-                             @foreach(@$data['data']['walletTotal'] as $row)
-                             <tr>
-
-                                 <td> <span>{{$row['role_id']}}</span></td>
-                                 <td> <span>{{$row['role_name']}}</span></td>
-                                 <td> <span>{{$row['user_count']}}</span></td>
-                                 <td> <span>{{$row['total_balance']}}</span></td>
-                                 <td> <span>{{$row['total_v_balance']}}</span></td>
-                                 <td> <span>{{$row['total_cashback']}}</span></td>
-                                 <td> <span>{{$row['total_credit_balance']}}</span></td>
-
-
-                             </tr>
+                 <div class="col-md-4 text-right">
+                     <div class="form-check radio radio-primary ps-0">
+                         <select class="form-select form-select-sm  type-filter" onchange="filterDashboard()"
+                             aria-label=".form-select-sm example">
+                             @foreach(@$data['data']['type'] as $key=>$value)
+                             <option>{{$value}}</option>
                              @endforeach
-                             @endif
+                         </select>
 
-                         </tbody>
-                     </table>
+
+
+                     </div>
                  </div>
+
              </div>
          </div>
      </div>
-     <div class="col-xl-12 col-md-12 proorder-md-5">
-         <div class="row">
-             <div class="col-xl-4 col-sm-6">
-                 <div class="card">
-                     <div class="card-body student-4">
-                         <div class="d-flex gap-2 align-items-end">
-                             <div class="flex-grow-1">
-                                 <h2>{{@$data['data']['pendingComplaints']}}</h2>
-                                 <p class="mb-0 text-truncate">pendingComplaints</p>
-                                 <div class="d-flex student-arrow text-truncate">
-                                     <p class="mb-0 up-arrow bg-light-danger"><i
-                                             class="icon-arrow-down font-danger"></i></p><span
-                                         class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
+
+     <div id="dashboardData">
+
+         <div class="col-xl-12 col-md-12 proorder-md-1">
+             <div class="row">
+
+
+
+
+                 <div class="col-xl-3 col-sm-6">
+                     <div class="card social-widget">
+                         <div class="card-body">
+                             <div class="d-flex align-items-center justify-content-between">
+                                 <div class="d-flex align-items-center gap-2">
+                                     <div class="social-icons"><img
+                                             src="{{asset('/ui')}}/assets/images/dashboard/social/1.png"
+                                             alt="facebook icon"></div><span class="f-w-600">Facebook</span>
                                  </div>
+                                 <span class="font-success f-12 d-xxl-block d-xl-none">+22.9%</span>
                              </div>
-                             <div class="flex-shrink-0"><img
-                                     src="{{asset('/ui')}}/assets/images/dashboard-4/icon/invoice.png" alt="">
+                             <div class="social-content">
+                                 <div>
+                                     <h5 class="mb-1">{{@$data['data']['total']['success']}}</h5>
+                                     <span class="f-light">Total Success</span>
+                                 </div>
+                                 <div class="social-chart">
+                                     <div id="radial-facebook" style="min-height: 96.4px;">
+                                         <div id="apexchartsmn2r6amt"
+                                             class="apexcharts-canvas apexchartsmn2r6amt apexcharts-theme-light"
+                                             style="width: 150px; height: 96.4px;"><svg id="SvgjsSvg2335" width="150"
+                                                 height="96.4" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
+                                                 xmlns:data="ApexChartsNS" transform="translate(0, 0)"
+                                                 style="background: transparent;">
+                                                 <g id="SvgjsG2337" class="apexcharts-inner apexcharts-graphical"
+                                                     transform="translate(23, 0)">
+                                                     <defs id="SvgjsDefs2336">
+                                                         <clipPath id="gridRectMaskmn2r6amt">
+                                                             <rect id="SvgjsRect2339" width="112" height="130" x="-3"
+                                                                 y="-1" rx="0" ry="0" opacity="1" stroke-width="0"
+                                                                 stroke="none" stroke-dasharray="0" fill="#fff"></rect>
+                                                         </clipPath>
+                                                         <clipPath id="forecastMaskmn2r6amt"></clipPath>
+                                                         <clipPath id="nonForecastMaskmn2r6amt"></clipPath>
+                                                         <clipPath id="gridRectMarkerMaskmn2r6amt">
+                                                             <rect id="SvgjsRect2340" width="110" height="132" x="-2"
+                                                                 y="-2" rx="0" ry="0" opacity="1" stroke-width="0"
+                                                                 stroke="none" stroke-dasharray="0" fill="#fff"></rect>
+                                                         </clipPath>
+                                                         <filter id="SvgjsFilter2353" filterUnits="userSpaceOnUse"
+                                                             width="200%" height="200%" x="-50%" y="-50%">
+                                                             <feFlood id="SvgjsFeFlood2354"
+                                                                 flood-color="var(--theme-default)" flood-opacity="0.35"
+                                                                 result="SvgjsFeFlood2354Out" in="SourceGraphic">
+                                                             </feFlood>
+                                                             <feComposite id="SvgjsFeComposite2355"
+                                                                 in="SvgjsFeFlood2354Out" in2="SourceAlpha"
+                                                                 operator="in" result="SvgjsFeComposite2355Out">
+                                                             </feComposite>
+                                                             <feOffset id="SvgjsFeOffset2356" dx="0" dy="3"
+                                                                 result="SvgjsFeOffset2356Out"
+                                                                 in="SvgjsFeComposite2355Out">
+                                                             </feOffset>
+                                                             <feGaussianBlur id="SvgjsFeGaussianBlur2357"
+                                                                 stdDeviation="10 " result="SvgjsFeGaussianBlur2357Out"
+                                                                 in="SvgjsFeOffset2356Out">
+                                                             </feGaussianBlur>
+                                                             <feMerge id="SvgjsFeMerge2358" result="SvgjsFeMerge2358Out"
+                                                                 in="SourceGraphic">
+                                                                 <feMergeNode id="SvgjsFeMergeNode2359"
+                                                                     in="SvgjsFeGaussianBlur2357Out"></feMergeNode>
+                                                                 <feMergeNode id="SvgjsFeMergeNode2360"
+                                                                     in="[object Arguments]">
+                                                                 </feMergeNode>
+                                                             </feMerge>
+                                                             <feBlend id="SvgjsFeBlend2361" in="SourceGraphic"
+                                                                 in2="SvgjsFeMerge2358Out" mode="normal"
+                                                                 result="SvgjsFeBlend2361Out"></feBlend>
+                                                         </filter>
+                                                     </defs>
+                                                     <g id="SvgjsG2341" class="apexcharts-radialbar">
+                                                         <g id="SvgjsG2342">
+                                                             <g id="SvgjsG2343" class="apexcharts-tracks">
+                                                                 <g id="SvgjsG2344"
+                                                                     class="apexcharts-radialbar-track apexcharts-track"
+                                                                     rel="1">
+                                                                     <path id="apexcharts-radialbarTrack-0"
+                                                                         d="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 52.99471250377342 22.704878510201578"
+                                                                         fill="none" fill-opacity="1"
+                                                                         stroke="rgba(242,242,242,0.85)"
+                                                                         stroke-opacity="1" stroke-linecap="round"
+                                                                         stroke-width="1.7648780487804883"
+                                                                         stroke-dasharray="0"
+                                                                         class="apexcharts-radialbar-area"
+                                                                         data:pathOrig="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 52.99471250377342 22.704878510201578">
+                                                                     </path>
+                                                                 </g>
+                                                             </g>
+                                                             <g id="SvgjsG2346">
+                                                                 <g id="SvgjsG2351"
+                                                                     class="apexcharts-series apexcharts-radial-series"
+                                                                     seriesName="series-1" rel="1" data:realIndex="0">
+                                                                     <path id="SvgjsPath2352"
+                                                                         d="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 23.26148476682089 47.2194182156779"
+                                                                         fill="none" fill-opacity="0.85"
+                                                                         stroke="var(--theme-default)"
+                                                                         stroke-opacity="1" stroke-linecap="round"
+                                                                         stroke-width="2.941463414634147"
+                                                                         stroke-dasharray="0"
+                                                                         class="apexcharts-radialbar-area apexcharts-radialbar-slice-0"
+                                                                         data:angle="281" data:value="78"
+                                                                         filter="url(#SvgjsFilter2353)" index="0" j="0"
+                                                                         data:pathOrig="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 23.26148476682089 47.2194182156779">
+                                                                     </path>
+                                                                 </g>
+                                                                 <circle id="SvgjsCircle2347" r="24.41268292682927"
+                                                                     cx="53" cy="53" class="apexcharts-radialbar-hollow"
+                                                                     fill="transparent"></circle>
+                                                                 <g id="SvgjsG2348" class="apexcharts-datalabels-group"
+                                                                     transform="translate(0, 0) scale(1)"
+                                                                     style="opacity: 1;">
+                                                                     <text id="SvgjsText2349"
+                                                                         font-family="Helvetica, Arial, sans-serif"
+                                                                         x="53" y="53" text-anchor="middle"
+                                                                         dominant-baseline="auto" font-size="16px"
+                                                                         font-weight="600" fill="var(--theme-default)"
+                                                                         class="apexcharts-text apexcharts-datalabel-label"
+                                                                         style="font-family: Helvetica, Arial, sans-serif;">series-1</text><text
+                                                                         id="SvgjsText2350"
+                                                                         font-family="Helvetica, Arial, sans-serif"
+                                                                         x="53" y="59" text-anchor="middle"
+                                                                         dominant-baseline="auto" font-size="14px"
+                                                                         font-weight="400" fill="var(--body-font-color)"
+                                                                         class="apexcharts-text apexcharts-datalabel-value"
+                                                                         style="font-family: Helvetica, Arial, sans-serif;">78%</text>
+                                                                 </g>
+                                                             </g>
+                                                         </g>
+                                                     </g>
+
+                                                 </g>
+                                                 <g id="SvgjsG2338" class="apexcharts-annotations"></g>
+                                             </svg>
+                                             <div class="apexcharts-legend"></div>
+                                         </div>
+                                     </div>
+                                 </div>
                              </div>
                          </div>
                      </div>
                  </div>
-             </div>
 
 
 
-
-
-
-
-
-             <div class="col-xl-4 col-sm-6">
-                 <div class="card">
-                     <div class="card-body student-4">
-                         <div class="d-flex gap-2 align-items-end">
-                             <div class="flex-grow-1">
-                                 <h2>{{@$data['data']['pendingWalletRequests']}}</h2>
-                                 <p class="mb-0 text-truncate">pendingWalletRequests</p>
-                                 <div class="d-flex student-arrow text-truncate">
-                                     <p class="mb-0 up-arrow bg-light-danger"><i
-                                             class="icon-arrow-down font-danger"></i></p><span
-                                         class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
-                                 </div>
+                 <div class="col-xl-3 col-sm-6">
+                     <div class="card social-widget">
+                         <div class="card-body">
+                             <div class="d-flex align-items-center justify-content-between">
+                                 <div class="d-flex align-items-center gap-2">
+                                     <div class="social-icons"><img
+                                             src="{{asset('/ui')}}/assets/images/dashboard/social/1.png"
+                                             alt="facebook icon"></div><span class="f-w-600">Facebook</span>
+                                 </div><span class="font-success f-12 d-xxl-block d-xl-none">+22.9%</span>
                              </div>
-                             <div class="flex-shrink-0"><img
-                                     src="{{asset('/ui')}}/assets/images/dashboard-4/icon/invoice.png" alt="">
+                             <div class="social-content">
+                                 <div>
+                                     <h5 class="mb-1">{{@$data['data']['total']['successCount']}}</h5><span
+                                         class="f-light">Success Count</span>
+                                 </div>
+                                 <div class="social-chart">
+                                     <div id="radial-facebook" style="min-height: 96.4px;">
+                                         <div id="apexchartsmn2r6amt"
+                                             class="apexcharts-canvas apexchartsmn2r6amt apexcharts-theme-light"
+                                             style="width: 150px; height: 96.4px;"><svg id="SvgjsSvg2335" width="150"
+                                                 height="96.4" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
+                                                 xmlns:data="ApexChartsNS" transform="translate(0, 0)"
+                                                 style="background: transparent;">
+                                                 <g id="SvgjsG2337" class="apexcharts-inner apexcharts-graphical"
+                                                     transform="translate(23, 0)">
+                                                     <defs id="SvgjsDefs2336">
+                                                         <clipPath id="gridRectMaskmn2r6amt">
+                                                             <rect id="SvgjsRect2339" width="112" height="130" x="-3"
+                                                                 y="-1" rx="0" ry="0" opacity="1" stroke-width="0"
+                                                                 stroke="none" stroke-dasharray="0" fill="#fff"></rect>
+                                                         </clipPath>
+                                                         <clipPath id="forecastMaskmn2r6amt"></clipPath>
+                                                         <clipPath id="nonForecastMaskmn2r6amt"></clipPath>
+                                                         <clipPath id="gridRectMarkerMaskmn2r6amt">
+                                                             <rect id="SvgjsRect2340" width="110" height="132" x="-2"
+                                                                 y="-2" rx="0" ry="0" opacity="1" stroke-width="0"
+                                                                 stroke="none" stroke-dasharray="0" fill="#fff"></rect>
+                                                         </clipPath>
+                                                         <filter id="SvgjsFilter2353" filterUnits="userSpaceOnUse"
+                                                             width="200%" height="200%" x="-50%" y="-50%">
+                                                             <feFlood id="SvgjsFeFlood2354"
+                                                                 flood-color="var(--theme-default)" flood-opacity="0.35"
+                                                                 result="SvgjsFeFlood2354Out" in="SourceGraphic">
+                                                             </feFlood>
+                                                             <feComposite id="SvgjsFeComposite2355"
+                                                                 in="SvgjsFeFlood2354Out" in2="SourceAlpha"
+                                                                 operator="in" result="SvgjsFeComposite2355Out">
+                                                             </feComposite>
+                                                             <feOffset id="SvgjsFeOffset2356" dx="0" dy="3"
+                                                                 result="SvgjsFeOffset2356Out"
+                                                                 in="SvgjsFeComposite2355Out">
+                                                             </feOffset>
+                                                             <feGaussianBlur id="SvgjsFeGaussianBlur2357"
+                                                                 stdDeviation="10 " result="SvgjsFeGaussianBlur2357Out"
+                                                                 in="SvgjsFeOffset2356Out">
+                                                             </feGaussianBlur>
+                                                             <feMerge id="SvgjsFeMerge2358" result="SvgjsFeMerge2358Out"
+                                                                 in="SourceGraphic">
+                                                                 <feMergeNode id="SvgjsFeMergeNode2359"
+                                                                     in="SvgjsFeGaussianBlur2357Out"></feMergeNode>
+                                                                 <feMergeNode id="SvgjsFeMergeNode2360"
+                                                                     in="[object Arguments]">
+                                                                 </feMergeNode>
+                                                             </feMerge>
+                                                             <feBlend id="SvgjsFeBlend2361" in="SourceGraphic"
+                                                                 in2="SvgjsFeMerge2358Out" mode="normal"
+                                                                 result="SvgjsFeBlend2361Out"></feBlend>
+                                                         </filter>
+                                                     </defs>
+                                                     <g id="SvgjsG2341" class="apexcharts-radialbar">
+                                                         <g id="SvgjsG2342">
+                                                             <g id="SvgjsG2343" class="apexcharts-tracks">
+                                                                 <g id="SvgjsG2344"
+                                                                     class="apexcharts-radialbar-track apexcharts-track"
+                                                                     rel="1">
+                                                                     <path id="apexcharts-radialbarTrack-0"
+                                                                         d="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 52.99471250377342 22.704878510201578"
+                                                                         fill="none" fill-opacity="1"
+                                                                         stroke="rgba(242,242,242,0.85)"
+                                                                         stroke-opacity="1" stroke-linecap="round"
+                                                                         stroke-width="1.7648780487804883"
+                                                                         stroke-dasharray="0"
+                                                                         class="apexcharts-radialbar-area"
+                                                                         data:pathOrig="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 52.99471250377342 22.704878510201578">
+                                                                     </path>
+                                                                 </g>
+                                                             </g>
+                                                             <g id="SvgjsG2346">
+                                                                 <g id="SvgjsG2351"
+                                                                     class="apexcharts-series apexcharts-radial-series"
+                                                                     seriesName="series-1" rel="1" data:realIndex="0">
+                                                                     <path id="SvgjsPath2352"
+                                                                         d="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 23.26148476682089 47.2194182156779"
+                                                                         fill="none" fill-opacity="0.85"
+                                                                         stroke="var(--theme-default)"
+                                                                         stroke-opacity="1" stroke-linecap="round"
+                                                                         stroke-width="2.941463414634147"
+                                                                         stroke-dasharray="0"
+                                                                         class="apexcharts-radialbar-area apexcharts-radialbar-slice-0"
+                                                                         data:angle="281" data:value="78"
+                                                                         filter="url(#SvgjsFilter2353)" index="0" j="0"
+                                                                         data:pathOrig="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 23.26148476682089 47.2194182156779">
+                                                                     </path>
+                                                                 </g>
+                                                                 <circle id="SvgjsCircle2347" r="24.41268292682927"
+                                                                     cx="53" cy="53" class="apexcharts-radialbar-hollow"
+                                                                     fill="transparent"></circle>
+                                                                 <g id="SvgjsG2348" class="apexcharts-datalabels-group"
+                                                                     transform="translate(0, 0) scale(1)"
+                                                                     style="opacity: 1;">
+                                                                     <text id="SvgjsText2349"
+                                                                         font-family="Helvetica, Arial, sans-serif"
+                                                                         x="53" y="53" text-anchor="middle"
+                                                                         dominant-baseline="auto" font-size="16px"
+                                                                         font-weight="600" fill="var(--theme-default)"
+                                                                         class="apexcharts-text apexcharts-datalabel-label"
+                                                                         style="font-family: Helvetica, Arial, sans-serif;">series-1</text><text
+                                                                         id="SvgjsText2350"
+                                                                         font-family="Helvetica, Arial, sans-serif"
+                                                                         x="53" y="59" text-anchor="middle"
+                                                                         dominant-baseline="auto" font-size="14px"
+                                                                         font-weight="400" fill="var(--body-font-color)"
+                                                                         class="apexcharts-text apexcharts-datalabel-value"
+                                                                         style="font-family: Helvetica, Arial, sans-serif;">78%</text>
+                                                                 </g>
+                                                             </g>
+                                                         </g>
+                                                     </g>
+
+                                                 </g>
+                                                 <g id="SvgjsG2338" class="apexcharts-annotations"></g>
+                                             </svg>
+                                             <div class="apexcharts-legend"></div>
+                                         </div>
+                                     </div>
+                                 </div>
                              </div>
                          </div>
                      </div>
                  </div>
-             </div>
 
 
 
-             <div class="col-xl-4 col-sm-6">
-                 <div class="card">
-                     <div class="card-body student-4">
-                         <div class="d-flex gap-2 align-items-end">
-                             <div class="flex-grow-1">
-                                 <h2>{{@$data['data']['mainWalletBalance']}}</h2>
-                                 <p class="mb-0 text-truncate">mainWalletBalance</p>
-                                 <div class="d-flex student-arrow text-truncate">
-                                     <p class="mb-0 up-arrow bg-light-danger"><i
-                                             class="icon-arrow-down font-danger"></i></p><span
-                                         class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
-                                 </div>
+                 <div class="col-xl-3 col-sm-6">
+                     <div class="card social-widget">
+                         <div class="card-body">
+                             <div class="d-flex align-items-center justify-content-between">
+                                 <div class="d-flex align-items-center gap-2">
+                                     <div class="social-icons"><img
+                                             src="{{asset('/ui')}}/assets/images/dashboard/social/1.png"
+                                             alt="facebook icon"></div><span class="f-w-600">Facebook</span>
+                                 </div><span class="font-success f-12 d-xxl-block d-xl-none">+22.9%</span>
                              </div>
-                             <div class="flex-shrink-0"><img
-                                     src="{{asset('/ui')}}/assets/images/dashboard-4/icon/invoice.png" alt="">
+                             <div class="social-content">
+                                 <div>
+                                     <h5 class="mb-1">{{@$data['data']['total']['failed']}}</h5><span
+                                         class="f-light">Failed</span>
+                                 </div>
+                                 <div class="social-chart">
+                                     <div id="radial-facebook" style="min-height: 96.4px;">
+                                         <div id="apexchartsmn2r6amt"
+                                             class="apexcharts-canvas apexchartsmn2r6amt apexcharts-theme-light"
+                                             style="width: 150px; height: 96.4px;"><svg id="SvgjsSvg2335" width="150"
+                                                 height="96.4" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
+                                                 xmlns:data="ApexChartsNS" transform="translate(0, 0)"
+                                                 style="background: transparent;">
+                                                 <g id="SvgjsG2337" class="apexcharts-inner apexcharts-graphical"
+                                                     transform="translate(23, 0)">
+                                                     <defs id="SvgjsDefs2336">
+                                                         <clipPath id="gridRectMaskmn2r6amt">
+                                                             <rect id="SvgjsRect2339" width="112" height="130" x="-3"
+                                                                 y="-1" rx="0" ry="0" opacity="1" stroke-width="0"
+                                                                 stroke="none" stroke-dasharray="0" fill="#fff"></rect>
+                                                         </clipPath>
+                                                         <clipPath id="forecastMaskmn2r6amt"></clipPath>
+                                                         <clipPath id="nonForecastMaskmn2r6amt"></clipPath>
+                                                         <clipPath id="gridRectMarkerMaskmn2r6amt">
+                                                             <rect id="SvgjsRect2340" width="110" height="132" x="-2"
+                                                                 y="-2" rx="0" ry="0" opacity="1" stroke-width="0"
+                                                                 stroke="none" stroke-dasharray="0" fill="#fff"></rect>
+                                                         </clipPath>
+                                                         <filter id="SvgjsFilter2353" filterUnits="userSpaceOnUse"
+                                                             width="200%" height="200%" x="-50%" y="-50%">
+                                                             <feFlood id="SvgjsFeFlood2354"
+                                                                 flood-color="var(--theme-default)" flood-opacity="0.35"
+                                                                 result="SvgjsFeFlood2354Out" in="SourceGraphic">
+                                                             </feFlood>
+                                                             <feComposite id="SvgjsFeComposite2355"
+                                                                 in="SvgjsFeFlood2354Out" in2="SourceAlpha"
+                                                                 operator="in" result="SvgjsFeComposite2355Out">
+                                                             </feComposite>
+                                                             <feOffset id="SvgjsFeOffset2356" dx="0" dy="3"
+                                                                 result="SvgjsFeOffset2356Out"
+                                                                 in="SvgjsFeComposite2355Out">
+                                                             </feOffset>
+                                                             <feGaussianBlur id="SvgjsFeGaussianBlur2357"
+                                                                 stdDeviation="10 " result="SvgjsFeGaussianBlur2357Out"
+                                                                 in="SvgjsFeOffset2356Out">
+                                                             </feGaussianBlur>
+                                                             <feMerge id="SvgjsFeMerge2358" result="SvgjsFeMerge2358Out"
+                                                                 in="SourceGraphic">
+                                                                 <feMergeNode id="SvgjsFeMergeNode2359"
+                                                                     in="SvgjsFeGaussianBlur2357Out"></feMergeNode>
+                                                                 <feMergeNode id="SvgjsFeMergeNode2360"
+                                                                     in="[object Arguments]">
+                                                                 </feMergeNode>
+                                                             </feMerge>
+                                                             <feBlend id="SvgjsFeBlend2361" in="SourceGraphic"
+                                                                 in2="SvgjsFeMerge2358Out" mode="normal"
+                                                                 result="SvgjsFeBlend2361Out"></feBlend>
+                                                         </filter>
+                                                     </defs>
+                                                     <g id="SvgjsG2341" class="apexcharts-radialbar">
+                                                         <g id="SvgjsG2342">
+                                                             <g id="SvgjsG2343" class="apexcharts-tracks">
+                                                                 <g id="SvgjsG2344"
+                                                                     class="apexcharts-radialbar-track apexcharts-track"
+                                                                     rel="1">
+                                                                     <path id="apexcharts-radialbarTrack-0"
+                                                                         d="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 52.99471250377342 22.704878510201578"
+                                                                         fill="none" fill-opacity="1"
+                                                                         stroke="rgba(242,242,242,0.85)"
+                                                                         stroke-opacity="1" stroke-linecap="round"
+                                                                         stroke-width="1.7648780487804883"
+                                                                         stroke-dasharray="0"
+                                                                         class="apexcharts-radialbar-area"
+                                                                         data:pathOrig="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 52.99471250377342 22.704878510201578">
+                                                                     </path>
+                                                                 </g>
+                                                             </g>
+                                                             <g id="SvgjsG2346">
+                                                                 <g id="SvgjsG2351"
+                                                                     class="apexcharts-series apexcharts-radial-series"
+                                                                     seriesName="series-1" rel="1" data:realIndex="0">
+                                                                     <path id="SvgjsPath2352"
+                                                                         d="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 23.26148476682089 47.2194182156779"
+                                                                         fill="none" fill-opacity="0.85"
+                                                                         stroke="var(--theme-default)"
+                                                                         stroke-opacity="1" stroke-linecap="round"
+                                                                         stroke-width="2.941463414634147"
+                                                                         stroke-dasharray="0"
+                                                                         class="apexcharts-radialbar-area apexcharts-radialbar-slice-0"
+                                                                         data:angle="281" data:value="78"
+                                                                         filter="url(#SvgjsFilter2353)" index="0" j="0"
+                                                                         data:pathOrig="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 23.26148476682089 47.2194182156779">
+                                                                     </path>
+                                                                 </g>
+                                                                 <circle id="SvgjsCircle2347" r="24.41268292682927"
+                                                                     cx="53" cy="53" class="apexcharts-radialbar-hollow"
+                                                                     fill="transparent"></circle>
+                                                                 <g id="SvgjsG2348" class="apexcharts-datalabels-group"
+                                                                     transform="translate(0, 0) scale(1)"
+                                                                     style="opacity: 1;">
+                                                                     <text id="SvgjsText2349"
+                                                                         font-family="Helvetica, Arial, sans-serif"
+                                                                         x="53" y="53" text-anchor="middle"
+                                                                         dominant-baseline="auto" font-size="16px"
+                                                                         font-weight="600" fill="var(--theme-default)"
+                                                                         class="apexcharts-text apexcharts-datalabel-label"
+                                                                         style="font-family: Helvetica, Arial, sans-serif;">series-1</text><text
+                                                                         id="SvgjsText2350"
+                                                                         font-family="Helvetica, Arial, sans-serif"
+                                                                         x="53" y="59" text-anchor="middle"
+                                                                         dominant-baseline="auto" font-size="14px"
+                                                                         font-weight="400" fill="var(--body-font-color)"
+                                                                         class="apexcharts-text apexcharts-datalabel-value"
+                                                                         style="font-family: Helvetica, Arial, sans-serif;">78%</text>
+                                                                 </g>
+                                                             </g>
+                                                         </g>
+                                                     </g>
+
+                                                 </g>
+                                                 <g id="SvgjsG2338" class="apexcharts-annotations"></g>
+                                             </svg>
+                                             <div class="apexcharts-legend"></div>
+                                         </div>
+                                     </div>
+                                 </div>
                              </div>
                          </div>
                      </div>
                  </div>
-             </div>
 
 
-             <div class="col-xl-4 col-sm-6">
-                 <div class="card">
-                     <div class="card-body student-4">
-                         <div class="d-flex gap-2 align-items-end">
-                             <div class="flex-grow-1">
-                                 <h2>{{@$data['data']['creditWalletBalance']}}</h2>
-                                 <p class="mb-0 text-truncate">creditWalletBalance</p>
-                                 <div class="d-flex student-arrow text-truncate">
-                                     <p class="mb-0 up-arrow bg-light-danger"><i
-                                             class="icon-arrow-down font-danger"></i></p><span
-                                         class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
-                                 </div>
+
+
+                 <div class="col-xl-3 col-sm-6">
+                     <div class="card social-widget">
+                         <div class="card-body">
+                             <div class="d-flex align-items-center justify-content-between">
+                                 <div class="d-flex align-items-center gap-2">
+                                     <div class="social-icons"><img
+                                             src="{{asset('/ui')}}/assets/images/dashboard/social/1.png"
+                                             alt="facebook icon"></div><span class="f-w-600">Facebook</span>
+                                 </div><span class="font-success f-12 d-xxl-block d-xl-none">+22.9%</span>
                              </div>
-                             <div class="flex-shrink-0"><img
-                                     src="{{asset('/ui')}}/assets/images/dashboard-4/icon/invoice.png" alt="">
+                             <div class="social-content">
+                                 <div>
+                                     <h5 class="mb-1">{{@$data['data']['total']['failedCount']}}</h5><span
+                                         class="f-light">Failed
+                                         Count</span>
+                                 </div>
+                                 <div class="social-chart">
+                                     <div id="radial-facebook" style="min-height: 96.4px;">
+                                         <div id="apexchartsmn2r6amt"
+                                             class="apexcharts-canvas apexchartsmn2r6amt apexcharts-theme-light"
+                                             style="width: 150px; height: 96.4px;"><svg id="SvgjsSvg2335" width="150"
+                                                 height="96.4" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
+                                                 xmlns:data="ApexChartsNS" transform="translate(0, 0)"
+                                                 style="background: transparent;">
+                                                 <g id="SvgjsG2337" class="apexcharts-inner apexcharts-graphical"
+                                                     transform="translate(23, 0)">
+                                                     <defs id="SvgjsDefs2336">
+                                                         <clipPath id="gridRectMaskmn2r6amt">
+                                                             <rect id="SvgjsRect2339" width="112" height="130" x="-3"
+                                                                 y="-1" rx="0" ry="0" opacity="1" stroke-width="0"
+                                                                 stroke="none" stroke-dasharray="0" fill="#fff"></rect>
+                                                         </clipPath>
+                                                         <clipPath id="forecastMaskmn2r6amt"></clipPath>
+                                                         <clipPath id="nonForecastMaskmn2r6amt"></clipPath>
+                                                         <clipPath id="gridRectMarkerMaskmn2r6amt">
+                                                             <rect id="SvgjsRect2340" width="110" height="132" x="-2"
+                                                                 y="-2" rx="0" ry="0" opacity="1" stroke-width="0"
+                                                                 stroke="none" stroke-dasharray="0" fill="#fff"></rect>
+                                                         </clipPath>
+                                                         <filter id="SvgjsFilter2353" filterUnits="userSpaceOnUse"
+                                                             width="200%" height="200%" x="-50%" y="-50%">
+                                                             <feFlood id="SvgjsFeFlood2354"
+                                                                 flood-color="var(--theme-default)" flood-opacity="0.35"
+                                                                 result="SvgjsFeFlood2354Out" in="SourceGraphic">
+                                                             </feFlood>
+                                                             <feComposite id="SvgjsFeComposite2355"
+                                                                 in="SvgjsFeFlood2354Out" in2="SourceAlpha"
+                                                                 operator="in" result="SvgjsFeComposite2355Out">
+                                                             </feComposite>
+                                                             <feOffset id="SvgjsFeOffset2356" dx="0" dy="3"
+                                                                 result="SvgjsFeOffset2356Out"
+                                                                 in="SvgjsFeComposite2355Out">
+                                                             </feOffset>
+                                                             <feGaussianBlur id="SvgjsFeGaussianBlur2357"
+                                                                 stdDeviation="10 " result="SvgjsFeGaussianBlur2357Out"
+                                                                 in="SvgjsFeOffset2356Out">
+                                                             </feGaussianBlur>
+                                                             <feMerge id="SvgjsFeMerge2358" result="SvgjsFeMerge2358Out"
+                                                                 in="SourceGraphic">
+                                                                 <feMergeNode id="SvgjsFeMergeNode2359"
+                                                                     in="SvgjsFeGaussianBlur2357Out"></feMergeNode>
+                                                                 <feMergeNode id="SvgjsFeMergeNode2360"
+                                                                     in="[object Arguments]">
+                                                                 </feMergeNode>
+                                                             </feMerge>
+                                                             <feBlend id="SvgjsFeBlend2361" in="SourceGraphic"
+                                                                 in2="SvgjsFeMerge2358Out" mode="normal"
+                                                                 result="SvgjsFeBlend2361Out"></feBlend>
+                                                         </filter>
+                                                     </defs>
+                                                     <g id="SvgjsG2341" class="apexcharts-radialbar">
+                                                         <g id="SvgjsG2342">
+                                                             <g id="SvgjsG2343" class="apexcharts-tracks">
+                                                                 <g id="SvgjsG2344"
+                                                                     class="apexcharts-radialbar-track apexcharts-track"
+                                                                     rel="1">
+                                                                     <path id="apexcharts-radialbarTrack-0"
+                                                                         d="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 52.99471250377342 22.704878510201578"
+                                                                         fill="none" fill-opacity="1"
+                                                                         stroke="rgba(242,242,242,0.85)"
+                                                                         stroke-opacity="1" stroke-linecap="round"
+                                                                         stroke-width="1.7648780487804883"
+                                                                         stroke-dasharray="0"
+                                                                         class="apexcharts-radialbar-area"
+                                                                         data:pathOrig="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 52.99471250377342 22.704878510201578">
+                                                                     </path>
+                                                                 </g>
+                                                             </g>
+                                                             <g id="SvgjsG2346">
+                                                                 <g id="SvgjsG2351"
+                                                                     class="apexcharts-series apexcharts-radial-series"
+                                                                     seriesName="series-1" rel="1" data:realIndex="0">
+                                                                     <path id="SvgjsPath2352"
+                                                                         d="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 23.26148476682089 47.2194182156779"
+                                                                         fill="none" fill-opacity="0.85"
+                                                                         stroke="var(--theme-default)"
+                                                                         stroke-opacity="1" stroke-linecap="round"
+                                                                         stroke-width="2.941463414634147"
+                                                                         stroke-dasharray="0"
+                                                                         class="apexcharts-radialbar-area apexcharts-radialbar-slice-0"
+                                                                         data:angle="281" data:value="78"
+                                                                         filter="url(#SvgjsFilter2353)" index="0" j="0"
+                                                                         data:pathOrig="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 23.26148476682089 47.2194182156779">
+                                                                     </path>
+                                                                 </g>
+                                                                 <circle id="SvgjsCircle2347" r="24.41268292682927"
+                                                                     cx="53" cy="53" class="apexcharts-radialbar-hollow"
+                                                                     fill="transparent"></circle>
+                                                                 <g id="SvgjsG2348" class="apexcharts-datalabels-group"
+                                                                     transform="translate(0, 0) scale(1)"
+                                                                     style="opacity: 1;">
+                                                                     <text id="SvgjsText2349"
+                                                                         font-family="Helvetica, Arial, sans-serif"
+                                                                         x="53" y="53" text-anchor="middle"
+                                                                         dominant-baseline="auto" font-size="16px"
+                                                                         font-weight="600" fill="var(--theme-default)"
+                                                                         class="apexcharts-text apexcharts-datalabel-label"
+                                                                         style="font-family: Helvetica, Arial, sans-serif;">series-1</text><text
+                                                                         id="SvgjsText2350"
+                                                                         font-family="Helvetica, Arial, sans-serif"
+                                                                         x="53" y="59" text-anchor="middle"
+                                                                         dominant-baseline="auto" font-size="14px"
+                                                                         font-weight="400" fill="var(--body-font-color)"
+                                                                         class="apexcharts-text apexcharts-datalabel-value"
+                                                                         style="font-family: Helvetica, Arial, sans-serif;">78%</text>
+                                                                 </g>
+                                                             </g>
+                                                         </g>
+                                                     </g>
+
+                                                 </g>
+                                                 <g id="SvgjsG2338" class="apexcharts-annotations"></g>
+                                             </svg>
+                                             <div class="apexcharts-legend"></div>
+                                         </div>
+                                     </div>
+                                 </div>
                              </div>
                          </div>
                      </div>
                  </div>
-             </div>
-             <div class="col-xl-4 col-sm-6">
-                 <div class="card">
-                     <div class="card-body student-4">
-                         <div class="d-flex gap-2 align-items-end">
-                             <div class="flex-grow-1">
-                                 <h2>{{@$data['data']['cashBackWalletBalance']}}</h2>
-                                 <p class="mb-0 text-truncate">cashBackWalletBalance</p>
-                                 <div class="d-flex student-arrow text-truncate">
-                                     <p class="mb-0 up-arrow bg-light-danger"><i
-                                             class="icon-arrow-down font-danger"></i></p><span
-                                         class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
-                                 </div>
-                             </div>
-                             <div class="flex-shrink-0"><img
-                                     src="{{asset('/ui')}}/assets/images/dashboard-4/icon/invoice.png" alt="">
-                             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                 <div class="col-xl-9 col-md-8">
+                     <div class="card">
+
+                         <div class="card-body">
+
+                             <canvas id="myChart" style="width:100%;max-width:100%;"></canvas>
+
                          </div>
                      </div>
                  </div>
+
+                 <div class="col-xl-3">
+                     <div class="row p-0 m-0">
+
+
+
+
+                         <div class="col-xl-12 col-sm-12 p-0 m-0">
+
+
+                             <div class="card social-widget">
+                                 <div class="card-body">
+                                     <div class="d-flex align-items-center justify-content-between">
+                                         <div class="d-flex align-items-center gap-2">
+                                             <div class="social-icons"><img
+                                                     src="{{asset('/ui')}}/assets/images/dashboard/social/1.png"
+                                                     alt="facebook icon"></div><span class="f-w-600">Facebook</span>
+                                         </div><span class="font-success f-12 d-xxl-block d-xl-none">+22.9%</span>
+                                     </div>
+                                     <div class="social-content">
+                                         <div>
+                                             <h5 class="mb-1">{{@$data['data']['total']['pending']}}</h5><span
+                                                 class="f-light">Pending</span>
+                                         </div>
+                                         <div class="social-chart">
+                                             <div id="radial-facebook" style="min-height: 96.4px;">
+                                                 <div id="apexchartsmn2r6amt"
+                                                     class="apexcharts-canvas apexchartsmn2r6amt apexcharts-theme-light"
+                                                     style="width: 150px; height: 96.4px;"><svg id="SvgjsSvg2335"
+                                                         width="150" height="96.4" xmlns="http://www.w3.org/2000/svg"
+                                                         version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                         xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
+                                                         xmlns:data="ApexChartsNS" transform="translate(0, 0)"
+                                                         style="background: transparent;">
+                                                         <g id="SvgjsG2337"
+                                                             class="apexcharts-inner apexcharts-graphical"
+                                                             transform="translate(23, 0)">
+                                                             <defs id="SvgjsDefs2336">
+                                                                 <clipPath id="gridRectMaskmn2r6amt">
+                                                                     <rect id="SvgjsRect2339" width="112" height="130"
+                                                                         x="-3" y="-1" rx="0" ry="0" opacity="1"
+                                                                         stroke-width="0" stroke="none"
+                                                                         stroke-dasharray="0" fill="#fff"></rect>
+                                                                 </clipPath>
+                                                                 <clipPath id="forecastMaskmn2r6amt"></clipPath>
+                                                                 <clipPath id="nonForecastMaskmn2r6amt"></clipPath>
+                                                                 <clipPath id="gridRectMarkerMaskmn2r6amt">
+                                                                     <rect id="SvgjsRect2340" width="110" height="132"
+                                                                         x="-2" y="-2" rx="0" ry="0" opacity="1"
+                                                                         stroke-width="0" stroke="none"
+                                                                         stroke-dasharray="0" fill="#fff"></rect>
+                                                                 </clipPath>
+                                                                 <filter id="SvgjsFilter2353"
+                                                                     filterUnits="userSpaceOnUse" width="200%"
+                                                                     height="200%" x="-50%" y="-50%">
+                                                                     <feFlood id="SvgjsFeFlood2354"
+                                                                         flood-color="var(--theme-default)"
+                                                                         flood-opacity="0.35"
+                                                                         result="SvgjsFeFlood2354Out"
+                                                                         in="SourceGraphic">
+                                                                     </feFlood>
+                                                                     <feComposite id="SvgjsFeComposite2355"
+                                                                         in="SvgjsFeFlood2354Out" in2="SourceAlpha"
+                                                                         operator="in" result="SvgjsFeComposite2355Out">
+                                                                     </feComposite>
+                                                                     <feOffset id="SvgjsFeOffset2356" dx="0" dy="3"
+                                                                         result="SvgjsFeOffset2356Out"
+                                                                         in="SvgjsFeComposite2355Out">
+                                                                     </feOffset>
+                                                                     <feGaussianBlur id="SvgjsFeGaussianBlur2357"
+                                                                         stdDeviation="10 "
+                                                                         result="SvgjsFeGaussianBlur2357Out"
+                                                                         in="SvgjsFeOffset2356Out"></feGaussianBlur>
+                                                                     <feMerge id="SvgjsFeMerge2358"
+                                                                         result="SvgjsFeMerge2358Out"
+                                                                         in="SourceGraphic">
+                                                                         <feMergeNode id="SvgjsFeMergeNode2359"
+                                                                             in="SvgjsFeGaussianBlur2357Out">
+                                                                         </feMergeNode>
+                                                                         <feMergeNode id="SvgjsFeMergeNode2360"
+                                                                             in="[object Arguments]"></feMergeNode>
+                                                                     </feMerge>
+                                                                     <feBlend id="SvgjsFeBlend2361" in="SourceGraphic"
+                                                                         in2="SvgjsFeMerge2358Out" mode="normal"
+                                                                         result="SvgjsFeBlend2361Out"></feBlend>
+                                                                 </filter>
+                                                             </defs>
+                                                             <g id="SvgjsG2341" class="apexcharts-radialbar">
+                                                                 <g id="SvgjsG2342">
+                                                                     <g id="SvgjsG2343" class="apexcharts-tracks">
+                                                                         <g id="SvgjsG2344"
+                                                                             class="apexcharts-radialbar-track apexcharts-track"
+                                                                             rel="1">
+                                                                             <path id="apexcharts-radialbarTrack-0"
+                                                                                 d="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 52.99471250377342 22.704878510201578"
+                                                                                 fill="none" fill-opacity="1"
+                                                                                 stroke="rgba(242,242,242,0.85)"
+                                                                                 stroke-opacity="1"
+                                                                                 stroke-linecap="round"
+                                                                                 stroke-width="1.7648780487804883"
+                                                                                 stroke-dasharray="0"
+                                                                                 class="apexcharts-radialbar-area"
+                                                                                 data:pathOrig="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 52.99471250377342 22.704878510201578">
+                                                                             </path>
+                                                                         </g>
+                                                                     </g>
+                                                                     <g id="SvgjsG2346">
+                                                                         <g id="SvgjsG2351"
+                                                                             class="apexcharts-series apexcharts-radial-series"
+                                                                             seriesName="series-1" rel="1"
+                                                                             data:realIndex="0">
+                                                                             <path id="SvgjsPath2352"
+                                                                                 d="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 23.26148476682089 47.2194182156779"
+                                                                                 fill="none" fill-opacity="0.85"
+                                                                                 stroke="var(--theme-default)"
+                                                                                 stroke-opacity="1"
+                                                                                 stroke-linecap="round"
+                                                                                 stroke-width="2.941463414634147"
+                                                                                 stroke-dasharray="0"
+                                                                                 class="apexcharts-radialbar-area apexcharts-radialbar-slice-0"
+                                                                                 data:angle="281" data:value="78"
+                                                                                 filter="url(#SvgjsFilter2353)"
+                                                                                 index="0" j="0"
+                                                                                 data:pathOrig="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 23.26148476682089 47.2194182156779">
+                                                                             </path>
+                                                                         </g>
+                                                                         <circle id="SvgjsCircle2347"
+                                                                             r="24.41268292682927" cx="53" cy="53"
+                                                                             class="apexcharts-radialbar-hollow"
+                                                                             fill="transparent"></circle>
+                                                                         <g id="SvgjsG2348"
+                                                                             class="apexcharts-datalabels-group"
+                                                                             transform="translate(0, 0) scale(1)"
+                                                                             style="opacity: 1;"><text
+                                                                                 id="SvgjsText2349"
+                                                                                 font-family="Helvetica, Arial, sans-serif"
+                                                                                 x="53" y="53" text-anchor="middle"
+                                                                                 dominant-baseline="auto"
+                                                                                 font-size="16px" font-weight="600"
+                                                                                 fill="var(--theme-default)"
+                                                                                 class="apexcharts-text apexcharts-datalabel-label"
+                                                                                 style="font-family: Helvetica, Arial, sans-serif;">series-1</text><text
+                                                                                 id="SvgjsText2350"
+                                                                                 font-family="Helvetica, Arial, sans-serif"
+                                                                                 x="53" y="59" text-anchor="middle"
+                                                                                 dominant-baseline="auto"
+                                                                                 font-size="14px" font-weight="400"
+                                                                                 fill="var(--body-font-color)"
+                                                                                 class="apexcharts-text apexcharts-datalabel-value"
+                                                                                 style="font-family: Helvetica, Arial, sans-serif;">78%</text>
+                                                                         </g>
+                                                                     </g>
+                                                                 </g>
+                                                             </g>
+
+                                                         </g>
+                                                         <g id="SvgjsG2338" class="apexcharts-annotations"></g>
+                                                     </svg>
+                                                     <div class="apexcharts-legend"></div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+
+
+
+                         <div class="col-xl-12 col-sm-12 p-0 m-0">
+
+
+                             <div class="card social-widget">
+                                 <div class="card-body">
+                                     <div class="d-flex align-items-center justify-content-between">
+                                         <div class="d-flex align-items-center gap-2">
+                                             <div class="social-icons"><img
+                                                     src="{{asset('/ui')}}/assets/images/dashboard/social/1.png"
+                                                     alt="facebook icon"></div><span class="f-w-600">Facebook</span>
+                                         </div><span class="font-success f-12 d-xxl-block d-xl-none">+22.9%</span>
+                                     </div>
+                                     <div class="social-content">
+                                         <div>
+                                             <h5 class="mb-1">{{@$data['data']['total']['pendingCount']}}</h5><span
+                                                 class="f-light">Pending Count</span>
+                                         </div>
+                                         <div class="social-chart">
+                                             <div id="radial-facebook" style="min-height: 96.4px;">
+                                                 <div id="apexchartsmn2r6amt"
+                                                     class="apexcharts-canvas apexchartsmn2r6amt apexcharts-theme-light"
+                                                     style="width: 150px; height: 96.4px;"><svg id="SvgjsSvg2335"
+                                                         width="150" height="96.4" xmlns="http://www.w3.org/2000/svg"
+                                                         version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                         xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
+                                                         xmlns:data="ApexChartsNS" transform="translate(0, 0)"
+                                                         style="background: transparent;">
+                                                         <g id="SvgjsG2337"
+                                                             class="apexcharts-inner apexcharts-graphical"
+                                                             transform="translate(23, 0)">
+                                                             <defs id="SvgjsDefs2336">
+                                                                 <clipPath id="gridRectMaskmn2r6amt">
+                                                                     <rect id="SvgjsRect2339" width="112" height="130"
+                                                                         x="-3" y="-1" rx="0" ry="0" opacity="1"
+                                                                         stroke-width="0" stroke="none"
+                                                                         stroke-dasharray="0" fill="#fff"></rect>
+                                                                 </clipPath>
+                                                                 <clipPath id="forecastMaskmn2r6amt"></clipPath>
+                                                                 <clipPath id="nonForecastMaskmn2r6amt"></clipPath>
+                                                                 <clipPath id="gridRectMarkerMaskmn2r6amt">
+                                                                     <rect id="SvgjsRect2340" width="110" height="132"
+                                                                         x="-2" y="-2" rx="0" ry="0" opacity="1"
+                                                                         stroke-width="0" stroke="none"
+                                                                         stroke-dasharray="0" fill="#fff"></rect>
+                                                                 </clipPath>
+                                                                 <filter id="SvgjsFilter2353"
+                                                                     filterUnits="userSpaceOnUse" width="200%"
+                                                                     height="200%" x="-50%" y="-50%">
+                                                                     <feFlood id="SvgjsFeFlood2354"
+                                                                         flood-color="var(--theme-default)"
+                                                                         flood-opacity="0.35"
+                                                                         result="SvgjsFeFlood2354Out"
+                                                                         in="SourceGraphic">
+                                                                     </feFlood>
+                                                                     <feComposite id="SvgjsFeComposite2355"
+                                                                         in="SvgjsFeFlood2354Out" in2="SourceAlpha"
+                                                                         operator="in" result="SvgjsFeComposite2355Out">
+                                                                     </feComposite>
+                                                                     <feOffset id="SvgjsFeOffset2356" dx="0" dy="3"
+                                                                         result="SvgjsFeOffset2356Out"
+                                                                         in="SvgjsFeComposite2355Out">
+                                                                     </feOffset>
+                                                                     <feGaussianBlur id="SvgjsFeGaussianBlur2357"
+                                                                         stdDeviation="10 "
+                                                                         result="SvgjsFeGaussianBlur2357Out"
+                                                                         in="SvgjsFeOffset2356Out"></feGaussianBlur>
+                                                                     <feMerge id="SvgjsFeMerge2358"
+                                                                         result="SvgjsFeMerge2358Out"
+                                                                         in="SourceGraphic">
+                                                                         <feMergeNode id="SvgjsFeMergeNode2359"
+                                                                             in="SvgjsFeGaussianBlur2357Out">
+                                                                         </feMergeNode>
+                                                                         <feMergeNode id="SvgjsFeMergeNode2360"
+                                                                             in="[object Arguments]"></feMergeNode>
+                                                                     </feMerge>
+                                                                     <feBlend id="SvgjsFeBlend2361" in="SourceGraphic"
+                                                                         in2="SvgjsFeMerge2358Out" mode="normal"
+                                                                         result="SvgjsFeBlend2361Out"></feBlend>
+                                                                 </filter>
+                                                             </defs>
+                                                             <g id="SvgjsG2341" class="apexcharts-radialbar">
+                                                                 <g id="SvgjsG2342">
+                                                                     <g id="SvgjsG2343" class="apexcharts-tracks">
+                                                                         <g id="SvgjsG2344"
+                                                                             class="apexcharts-radialbar-track apexcharts-track"
+                                                                             rel="1">
+                                                                             <path id="apexcharts-radialbarTrack-0"
+                                                                                 d="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 52.99471250377342 22.704878510201578"
+                                                                                 fill="none" fill-opacity="1"
+                                                                                 stroke="rgba(242,242,242,0.85)"
+                                                                                 stroke-opacity="1"
+                                                                                 stroke-linecap="round"
+                                                                                 stroke-width="1.7648780487804883"
+                                                                                 stroke-dasharray="0"
+                                                                                 class="apexcharts-radialbar-area"
+                                                                                 data:pathOrig="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 52.99471250377342 22.704878510201578">
+                                                                             </path>
+                                                                         </g>
+                                                                     </g>
+                                                                     <g id="SvgjsG2346">
+                                                                         <g id="SvgjsG2351"
+                                                                             class="apexcharts-series apexcharts-radial-series"
+                                                                             seriesName="series-1" rel="1"
+                                                                             data:realIndex="0">
+                                                                             <path id="SvgjsPath2352"
+                                                                                 d="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 23.26148476682089 47.2194182156779"
+                                                                                 fill="none" fill-opacity="0.85"
+                                                                                 stroke="var(--theme-default)"
+                                                                                 stroke-opacity="1"
+                                                                                 stroke-linecap="round"
+                                                                                 stroke-width="2.941463414634147"
+                                                                                 stroke-dasharray="0"
+                                                                                 class="apexcharts-radialbar-area apexcharts-radialbar-slice-0"
+                                                                                 data:angle="281" data:value="78"
+                                                                                 filter="url(#SvgjsFilter2353)"
+                                                                                 index="0" j="0"
+                                                                                 data:pathOrig="M 53 22.704878048780486 A 30.295121951219514 30.295121951219514 0 1 1 23.26148476682089 47.2194182156779">
+                                                                             </path>
+                                                                         </g>
+                                                                         <circle id="SvgjsCircle2347"
+                                                                             r="24.41268292682927" cx="53" cy="53"
+                                                                             class="apexcharts-radialbar-hollow"
+                                                                             fill="transparent"></circle>
+                                                                         <g id="SvgjsG2348"
+                                                                             class="apexcharts-datalabels-group"
+                                                                             transform="translate(0, 0) scale(1)"
+                                                                             style="opacity: 1;"><text
+                                                                                 id="SvgjsText2349"
+                                                                                 font-family="Helvetica, Arial, sans-serif"
+                                                                                 x="53" y="53" text-anchor="middle"
+                                                                                 dominant-baseline="auto"
+                                                                                 font-size="16px" font-weight="600"
+                                                                                 fill="var(--theme-default)"
+                                                                                 class="apexcharts-text apexcharts-datalabel-label"
+                                                                                 style="font-family: Helvetica, Arial, sans-serif;">series-1</text><text
+                                                                                 id="SvgjsText2350"
+                                                                                 font-family="Helvetica, Arial, sans-serif"
+                                                                                 x="53" y="59" text-anchor="middle"
+                                                                                 dominant-baseline="auto"
+                                                                                 font-size="14px" font-weight="400"
+                                                                                 fill="var(--body-font-color)"
+                                                                                 class="apexcharts-text apexcharts-datalabel-value"
+                                                                                 style="font-family: Helvetica, Arial, sans-serif;">78%</text>
+                                                                         </g>
+                                                                     </g>
+                                                                 </g>
+                                                             </g>
+
+                                                         </g>
+                                                         <g id="SvgjsG2338" class="apexcharts-annotations"></g>
+                                                     </svg>
+                                                     <div class="apexcharts-legend"></div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+
+
+
+
+                     </div>
+                 </div>
+
              </div>
-
-
-
-
-
-
-
-
-
-
          </div>
+
+
+
+
+
+
+         <!-- walletTotal -->
+
+
+
+
+
+
+
+
+
+
+
+         <div class="col-xl-12 col-md-12 proorder-md-4">
+             <div class="card">
+                 <div class="card-header card-no-border pb-0">
+                     <div class="header-top">
+                         <h4>Wallet Total</h4>
+                         <div class="dropdown icon-dropdown">
+                             <button class="btn dropdown-toggle" id="userdropdown1" type="button"
+                                 data-bs-toggle="dropdown" aria-expanded="false"><i class="icon-more-alt"></i></button>
+                             <!-- <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown1"><a
+                                     class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
+                                     href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div> -->
+                         </div>
+                     </div>
+                 </div>
+                 <div class="card-body pt-0 assignments-table px-0">
+                     <div class="table-responsive theme-scrollbar">
+                         <table class="table display" id="assignments-table" style="width:100%">
+                             <thead>
+                                 <tr>
+
+                                     <th>Sno </th>
+                                     <th>Role Name</th>
+                                     <th>User Count </th>
+                                     <th>Total Balance</th>
+                                     <th>Total V Balance</th>
+                                     <th>Total Cashback</th>
+                                     <th>Total Credit Balance</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 @if(!empty($data['data']['walletTotal']))
+                                 @foreach(@$data['data']['walletTotal'] as $row)
+                                 <tr>
+
+                                     <td> <span>{{$row['role_id']}}</span></td>
+                                     <td> <span>{{$row['role_name']}}</span></td>
+                                     <td> <span>{{$row['user_count']}}</span></td>
+                                     <td> <span>{{$row['total_balance']}}</span></td>
+                                     <td> <span>{{$row['total_v_balance']}}</span></td>
+                                     <td> <span>{{$row['total_cashback']}}</span></td>
+                                     <td> <span>{{$row['total_credit_balance']}}</span></td>
+
+
+                                 </tr>
+                                 @endforeach
+                                 @endif
+
+                             </tbody>
+                         </table>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="col-xl-12 col-md-12 proorder-md-5">
+             <div class="row">
+                 <div class="col-xl-4 col-sm-6">
+                     <div class="card">
+                         <div class="card-body student-4">
+                             <div class="d-flex gap-2 align-items-end">
+                                 <div class="flex-grow-1">
+                                     <h2>{{@$data['data']['pendingComplaints']}}</h2>
+                                     <p class="mb-0 text-truncate">pendingComplaints</p>
+                                     <div class="d-flex student-arrow text-truncate">
+                                         <p class="mb-0 up-arrow bg-light-danger"><i
+                                                 class="icon-arrow-down font-danger"></i></p>
+                                         <span class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
+                                     </div>
+                                 </div>
+                                 <div class="flex-shrink-0"><img
+                                         src="{{asset('/ui')}}/assets/images/dashboard-4/icon/invoice.png" alt="">
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+
+
+
+
+
+
+
+                 <div class="col-xl-4 col-sm-6">
+                     <div class="card">
+                         <div class="card-body student-4">
+                             <div class="d-flex gap-2 align-items-end">
+                                 <div class="flex-grow-1">
+                                     <h2>{{@$data['data']['pendingWalletRequests']}}</h2>
+                                     <p class="mb-0 text-truncate">pendingWalletRequests</p>
+                                     <div class="d-flex student-arrow text-truncate">
+                                         <p class="mb-0 up-arrow bg-light-danger"><i
+                                                 class="icon-arrow-down font-danger"></i></p>
+                                         <span class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
+                                     </div>
+                                 </div>
+                                 <div class="flex-shrink-0"><img
+                                         src="{{asset('/ui')}}/assets/images/dashboard-4/icon/invoice.png" alt="">
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+
+
+                 <div class="col-xl-4 col-sm-6">
+                     <div class="card">
+                         <div class="card-body student-4">
+                             <div class="d-flex gap-2 align-items-end">
+                                 <div class="flex-grow-1">
+                                     <h2>{{@$data['data']['mainWalletBalance']}}</h2>
+                                     <p class="mb-0 text-truncate">mainWalletBalance</p>
+                                     <div class="d-flex student-arrow text-truncate">
+                                         <p class="mb-0 up-arrow bg-light-danger"><i
+                                                 class="icon-arrow-down font-danger"></i></p>
+                                         <span class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
+                                     </div>
+                                 </div>
+                                 <div class="flex-shrink-0"><img
+                                         src="{{asset('/ui')}}/assets/images/dashboard-4/icon/invoice.png" alt="">
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+
+                 <div class="col-xl-4 col-sm-6">
+                     <div class="card">
+                         <div class="card-body student-4">
+                             <div class="d-flex gap-2 align-items-end">
+                                 <div class="flex-grow-1">
+                                     <h2>{{@$data['data']['creditWalletBalance']}}</h2>
+                                     <p class="mb-0 text-truncate">creditWalletBalance</p>
+                                     <div class="d-flex student-arrow text-truncate">
+                                         <p class="mb-0 up-arrow bg-light-danger"><i
+                                                 class="icon-arrow-down font-danger"></i></p>
+                                         <span class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
+                                     </div>
+                                 </div>
+                                 <div class="flex-shrink-0"><img
+                                         src="{{asset('/ui')}}/assets/images/dashboard-4/icon/invoice.png" alt="">
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-xl-4 col-sm-6">
+                     <div class="card">
+                         <div class="card-body student-4">
+                             <div class="d-flex gap-2 align-items-end">
+                                 <div class="flex-grow-1">
+                                     <h2>{{@$data['data']['cashBackWalletBalance']}}</h2>
+                                     <p class="mb-0 text-truncate">cashBackWalletBalance</p>
+                                     <div class="d-flex student-arrow text-truncate">
+                                         <p class="mb-0 up-arrow bg-light-danger"><i
+                                                 class="icon-arrow-down font-danger"></i></p>
+                                         <span class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
+                                     </div>
+                                 </div>
+                                 <div class="flex-shrink-0"><img
+                                         src="{{asset('/ui')}}/assets/images/dashboard-4/icon/invoice.png" alt="">
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+
+
+
+
+
+
+
+
+
+             </div>
+         </div>
+
      </div>
-     <!-- <div class="col-xxl-4 col-xl-7 box-col-7 col-md-6 proorder-md-3">
-         <div class="card">
-             <div class="card-header card-no-border pb-0">
-                 <div class="header-top">
-                     <h4>Actively Hours</h4>
-                     <div class="dropdown icon-dropdown">
-                         <button class="btn dropdown-toggle" id="userdropdown10" type="button" data-bs-toggle="dropdown"
-                             aria-expanded="false"><i class="icon-more-alt"></i></button>
-                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown10"><a
-                                 class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
-                                 href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
-                     </div>
-                 </div>
-             </div>
-             <div class="card-body">
-                 <div id="actively-hours"></div>
-             </div>
-         </div>
-     </div>
-     <div class="col-xxl-3 col-xl-5 box-col-5 col-md-6 proorder-md-6">
-         <div class="card">
-             <div class="card-header card-no-border pb-0">
-                 <div class="header-top">
-                     <h4>Enrolled Classes</h4>
-                     <div class="dropdown icon-dropdown">
-                         <button class="btn dropdown-toggle" id="userdropdown11" type="button" data-bs-toggle="dropdown"
-                             aria-expanded="false"><i class="icon-more-alt"></i></button>
-                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown11"><a
-                                 class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
-                                 href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
-                     </div>
-                 </div>
-             </div>
-             <div class="card-body pt-0 pb-1">
-                 <ul class="enrolled-class">
-                     <li class="d-flex align-items-center gap-2"><span class="b-primary bg-primary"></span>
-                         <div class="flex-grow-1"> <a href="">
-                                 <h5 class="text-truncate">After Effects CC Masterclass </h5>
-                             </a>
-                             <p>10:20 -11:30</p>
-                         </div>
-                         <div class="flex-shrink-0">
-                             <div class="dropdown icon-dropdown">
-                                 <button class="btn dropdown-toggle" id="userdropdown12" type="button"
-                                     data-bs-toggle="dropdown" aria-expanded="false"><i
-                                         class="icon-angle-right"></i></button>
-                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown12"><a
-                                         class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
-                                         href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
-                             </div>
-                         </div>
-                     </li>
-                     <li class="d-flex align-items-center gap-2"><span class="b-secondary bg-secondary"></span>
-                         <div class="flex-grow-1"> <a href="">
-                                 <h5 class="text-truncate">Design from A to Z</h5>
-                             </a>
-                             <p>09:00 -10:30</p>
-                         </div>
-                         <div class="flex-shrink-0">
-                             <div class="dropdown icon-dropdown">
-                                 <button class="btn dropdown-toggle" id="userdropdown13" type="button"
-                                     data-bs-toggle="dropdown" aria-expanded="false"><i
-                                         class="icon-angle-right"></i></button>
-                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown13"><a
-                                         class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
-                                         href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
-                             </div>
-                         </div>
-                     </li>
-                     <li class="d-flex align-items-center gap-2"><span class="b-warning bg-warning"></span>
-                         <div class="flex-grow-1"> <a href="">
-                                 <h5 class="text-truncate">Graphic Design Bootcamp</h5>
-                             </a>
-                             <p>15:00 -16:00</p>
-                         </div>
-                         <div class="flex-shrink-0">
-                             <div class="dropdown icon-dropdown">
-                                 <button class="btn dropdown-toggle" id="userdropdown14" type="button"
-                                     data-bs-toggle="dropdown" aria-expanded="false"><i
-                                         class="icon-angle-right"></i></button>
-                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown14"><a
-                                         class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
-                                         href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
-                             </div>
-                         </div>
-                     </li>
-                     <li class="d-flex align-items-center gap-2"><span class="b-tertiary bg-tertiary"></span>
-                         <div class="flex-grow-1"> <a href="">
-                                 <h5 class="text-truncate">The Ultimate Guide to Usabillity</h5>
-                             </a>
-                             <p>13:25 -14:30</p>
-                         </div>
-                         <div class="flex-shrink-0">
-                             <div class="dropdown icon-dropdown">
-                                 <button class="btn dropdown-toggle" id="userdropdown15" type="button"
-                                     data-bs-toggle="dropdown" aria-expanded="false"><i
-                                         class="icon-angle-right"></i></button>
-                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown15"><a
-                                         class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
-                                         href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
-                             </div>
-                         </div>
-                     </li>
-                     <li class="d-flex align-items-center gap-2"><span class="b-success bg-success"></span>
-                         <div class="flex-grow-1"> <a href="">
-                                 <h5 class="text-truncate">After Effects CC Masterclass</h5>
-                             </a>
-                             <p>12:45 -14:20</p>
-                         </div>
-                         <div class="flex-shrink-0">
-                             <div class="dropdown icon-dropdown">
-                                 <button class="btn dropdown-toggle" id="userdropdown16" type="button"
-                                     data-bs-toggle="dropdown" aria-expanded="false"><i
-                                         class="icon-angle-right"></i></button>
-                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown16"><a
-                                         class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
-                                         href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
-                             </div>
-                         </div>
-                     </li>
-                 </ul>
-             </div>
-         </div>
-     </div>
-     <div class="col-xxl-5 col-xl-6 box-col-6 proorder-4-xl-1 proorder-md-7">
-         <div class="card">
-             <div class="card-header card-no-border pb-0">
-                 <div class="header-top">
-                     <h4>Featured Courses</h4>
-                     <div class="dropdown icon-dropdown">
-                         <button class="btn dropdown-toggle" id="userdropdown17" type="button" data-bs-toggle="dropdown"
-                             aria-expanded="false"><i class="icon-more-alt"></i></button>
-                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown17"><a
-                                 class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
-                                 href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
-                     </div>
-                 </div>
-             </div>
-             <div class="card-body p-0 featured-table">
-                 <div class="table-responsive theme-scrollbar">
-                     <table class="table display" id="featured-table" style="width:100%">
-                         <thead>
-                             <tr>
-                                 <th>Course Name</th>
-                                 <th>Start</th>
-                                 <th>Rate</th>
-                                 <th>Type</th>
-                                 <th>Save</th>
-                             </tr>
-                         </thead>
-                         <tbody>
-                             <tr>
-                                 <td>
-                                     <div class="d-flex align-items-center gap-2">
-                                         <div class="flex-shrink-0"> <img
-                                                 src="{{asset('/ui')}}/assets/images/dashboard-4/featured/1.png" alt="">
-                                         </div>
-                                         <div class="flex-grow-1"><a href="product-page.html">
-                                                 <h5>Mobile UX</h5>
-                                             </a><span>Erin Mooney</span></div>
-                                     </div>
-                                 </td>
-                                 <td>Feb 15</td>
-                                 <td> <span class="d-flex align-item-center gap-2 font-primary"> <i class="font-primary"
-                                             data-feather="star"> </i>4.8</span>
-                                 </td>
-                                 <td>UX/UI Design</td>
-                                 <td class="initial-color" id="colorChangeButton"><i data-feather="bookmark"> </i></td>
-                             </tr>
-                             <tr>
-                                 <td>
-                                     <div class="d-flex align-items-center gap-2">
-                                         <div class="flex-shrink-0"><img
-                                                 src="{{asset('/ui')}}/assets/images/dashboard-4/featured/2.png" alt="">
-                                         </div>
-                                         <div class="flex-grow-1"><a href="product-page.html">
-                                                 <h5>Illustration</h5>
-                                             </a><span>Elsie Lemon</span></div>
-                                     </div>
-                                 </td>
-                                 <td>Mar 22</td>
-                                 <td> <span class="d-flex align-item-center gap-2 font-primary"> <i class="font-primary"
-                                             data-feather="star"> </i>2.3</span>
-                                 </td>
-                                 <td>Web Designer</td>
-                                 <td class="initial-color" id="colorChangeButton1"><i data-feather="bookmark"> </i></td>
-                             </tr>
-                             <tr>
-                                 <td>
-                                     <div class="d-flex align-items-center gap-2">
-                                         <div class="flex-shrink-0"><img
-                                                 src="{{asset('/ui')}}/assets/images/dashboard-4/featured/3.png" alt="">
-                                         </div>
-                                         <div class="flex-grow-1"><a href="product-page.html">
-                                                 <h5>Design System</h5>
-                                             </a><span>Anna Green</span></div>
-                                     </div>
-                                 </td>
-                                 <td>Jun 28</td>
-                                 <td> <span class="d-flex align-item-center gap-2 font-primary"> <i class="font-primary"
-                                             data-feather="star"> </i>1.5</span>
-                                 </td>
-                                 <td>Developer</td>
-                                 <td class="initial-color" id="colorChangeButton2"><i data-feather="bookmark"> </i></td>
-                             </tr>
-                             <tr>
-                                 <td>
-                                     <div class="d-flex align-items-center gap-2">
-                                         <div class="flex-shrink-0"><img
-                                                 src="{{asset('/ui')}}/assets/images/dashboard-4/featured/4.png" alt="">
-                                         </div>
-                                         <div class="flex-grow-1"><a href="product-page.html">
-                                                 <h5>Leadership</h5>
-                                             </a><span>John Elliot</span></div>
-                                     </div>
-                                 </td>
-                                 <td>Apr 04</td>
-                                 <td> <span class="d-flex align-item-center gap-2 font-primary"> <i class="font-primary"
-                                             data-feather="star"> </i>2.4</span>
-                                 </td>
-                                 <td>UX/UI Design</td>
-                                 <td class="initial-color" id="colorChangeButton3"><i data-feather="bookmark"> </i></td>
-                             </tr>
-                             <tr>
-                                 <td>
-                                     <div class="d-flex align-items-center gap-2">
-                                         <div class="flex-shrink-0"><img
-                                                 src="{{asset('/ui')}}/assets/images/dashboard-4/featured/5.png" alt="">
-                                         </div>
-                                         <div class="flex-grow-1"><a href="product-page.html">
-                                                 <h5>Latest Figma</h5>
-                                             </a><span>Dylan Field</span></div>
-                                     </div>
-                                 </td>
-                                 <td>jun 01</td>
-                                 <td><span class="d-flex align-item-center gap-2 font-primary"> <i class="font-primary"
-                                             data-feather="star"> </i>5.4</span>
-                                 </td>
-                                 <td>Graphic Designer</td>
-                                 <td class="initial-color" id="colorChangeButton4"><i data-feather="bookmark"> </i></td>
-                             </tr>
-                         </tbody>
-                     </table>
-                 </div>
-             </div>
-         </div>
-     </div> -->
-     <!-- <div class="col-xxl-7 col-xl-12 box-col-12 proorder-md-8">
-         <div class="card">
-             <div class="card-header card-no-border pb-0">
-                 <div class="header-top">
-                     <h4>Monthly Attendance Report (Feb)</h4>
-                     <div class="dropdown icon-dropdown">
-                         <button class="btn dropdown-toggle" id="userdropdown18" type="button" data-bs-toggle="dropdown"
-                             aria-expanded="false"><i class="icon-more-alt"></i></button>
-                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown18"><a
-                                 class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
-                                 href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
-                     </div>
-                 </div>
-             </div>
-             <div class="card-body pb-0">
-                 <div class="monthly-report">
-                     <ul class="d-flex align-item-center gap-2">
-                         <li> <span class="bg-primary"> </span>Teacher</li>
-                         <li> <span class="bg-secondary"> </span>Student</li>
-                     </ul>
-                 </div>
-                 <div id="monthly-reportchart"></div>
-             </div>
-         </div>
-     </div>
-     <div class="col-xxl-5 col-xl-6 box-col-6 proorder-md-9">
-         <div class="card">
-             <div class="card-header card-no-border pb-0">
-                 <div class="header-top">
-                     <h4>Schedule</h4>
-                     <div class="dropdown icon-dropdown">
-                         <button class="btn dropdown-toggle" id="userdropdown19" type="button" data-bs-toggle="dropdown"
-                             aria-expanded="false"><i class="icon-more-alt"></i></button>
-                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown19"><a
-                                 class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
-                                 href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
-                     </div>
-                 </div>
-             </div>
-             <div class="card-body schedult-calendar pt-0">
-                 <div class="schedule-container">
-                     <div id="schedulechart"></div>
-                 </div>
-             </div>
-         </div>
-     </div> -->
+
  </div>
+
+
+ <script>
+function filterDashboard() {
+
+    $('#dashboardData').html("<h4>Please wait..</h4>");
+    var type = document.querySelector('.type-filter');
+    var range = $('input[name="radio"]:checked').val();
+    $.get('dashboard-data?type=' + type.value + '&range=' + range, function(response) {
+        $(".loader-wrapper").fadeOut("slow", function() {
+            $(this).remove();
+        });
+        $('#dashboardData').html(response);
+
+    }).fail(function() {
+        $(".loader-wrapper").fadeOut("slow", function() {
+            $(this).remove();
+        });
+        console.error('Error loading the page.');
+        alert('There was an error loading the page.');
+    });
+}
+ </script>
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
@@ -678,7 +1243,7 @@ new Chart("myChart", {
         },
         title: {
             display: true,
-            text: "World Wine Production 2018"
+            text: "Monthly Report"
         }
     }
 });

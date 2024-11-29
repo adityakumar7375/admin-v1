@@ -45,41 +45,23 @@
             function(position) {
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
+                //localStorage.setItem(cacheKey, JSON.stringify(response));
+                localStorage.setItem('lat', lat);
+                localStorage.setItem('lng', lng);
 
-                fetch('/save-location', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                        },
-                        body: JSON.stringify({
-                            latitude: lat,
-                            longitude: lng
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Location saved:', data);
-                    })
-                    .catch(error => {
-                        console.error('Error saving location:', error);
-                    });
             },
             function(error) {
-                // Error: Handle permission denial or any other error
-                if (error.code === error.PERMISSION_DENIED) {
-                    alert('Location access is denied. Please enable location access to continue.');
-                } else {
-                    alert('An error occurred while fetching location: ' + error.message);
-                }
 
-                // Optionally, give the user instructions on how to enable location
                 alert('Please enable location access in your browser settings to proceed.');
             }
         );
     } else {
         alert('Geolocation is not supported by your browser.');
     }
+    localStorage.setItem("base_url", "{{@$webData['data']['baseUrl']}}");
+
+    // const a = localStorage.getItem('base_url');
+    // alert(a);
     </script>
     <style>
     .parsley-required {
@@ -145,8 +127,8 @@
                             <h4 class="text-dark text-center">Verify Your OTP</h4>
                             <p class="text-center">
                                 Enter the 6-digit OTP sent to your mobile.</p>
-                            <form action="{{ route('submit.otp') }}" method="post" class="row g-3" id="submitFormOtp">
-                                @csrf
+                            <form action="/admin/access/allLogout" method="post" class="row g-3" id="submitFormOtp">
+
                                 <div class="col-md-12">
                                     <label class="form-label" for="otp">Enter OTP</label>
                                     <input class="form-control" id="otp" name="otp" required type="number"
@@ -202,78 +184,19 @@
 
 
     $("#submitForm").on('submit', function(e) {
+        const base_url = localStorage.getItem('base_url');
+        const url = base_url + $(this).attr('action');
         e.preventDefault();
         var data = new FormData(this);
-        if ($(this).parsley().isValid()) {
-            $('#btnSubmit').prop('disabled', true);
-            $("#btnSubmit").html("Please wait.. <i class='fa fa-spin fa-refresh '></i>");
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: $(this).attr('action'),
-                type: $(this).attr('method'),
-                data: data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    console.log(response);
-                    $('#btnSubmit').prop('disabled', false);
-                    $("#btnSubmit").html("Submit");
-                    if (response.error == true) {
-                        iziToast.show({
-                            icon: response.icon,
-                            color: response.color,
-                            message: response.msg,
-                            position: 'topCenter',
-                        });
-                    }
+        var sendData = {};
+        data.forEach(function(value, key) {
+            sendData[key] = value;
+        });
+        sendData['latitude'] = localStorage.getItem('lat');
+        sendData['longitude'] = localStorage.getItem('lng');
 
-                    if (response.model == 'open') {
-                        $("#errorLog").html(response.msg);
-                        var modal = new bootstrap.Modal(document.getElementById('loginError'));
-                        modal.show();
-                    }
-                    if (response.model == 'close') {
-                        var modal = new bootstrap.Modal(document.getElementById('loginError'));
-                        modal.hide();
-                    }
-                    if (response.otp == 'open') {
-
-                        var modal1 = new bootstrap.Modal(document.getElementById('otp_model'));
-                        modal1.show();
-                    }
-                    if (response.otp == 'close') {
-                        var modal1 = new bootstrap.Modal(document.getElementById('otp_model'));
-                        modal1.hide();
-                    }
-
-
-                    if (response.reditect == true) {
-                        if (response.wayOfRedirect == 'reload') {
-                            window.setTimeout(function() {
-                                window.location.reload();
-                            }, 800);
-                        } else if (response.wayOfRedirect == 'redirect') {
-                            window.setTimeout(function() {
-                                window.location.href = response.location;
-                            }, 800);
-                        }
-                    }
-                },
-                error: function() {
-                    //alert('errorData');
-                    $("#submitBtn").removeAttr("disabled");
-                    $("#buttonText").html("Login <i class='fa fa-sign-in'></i>");
-                }
-            });
-
-        } else {
-            return false;
-        }
+        const response = SendServerRequest(url, sendData);
+        // console.log(response);
     });
 
 
@@ -281,133 +204,126 @@
 
 
     $("#submitFormOtp").on('submit', function(e) {
+        const base_url = localStorage.getItem('base_url');
+        const url = base_url + $(this).attr('action');
         e.preventDefault();
         var data = new FormData(this);
-        if ($(this).parsley().isValid()) {
-            $('#submit_otp').prop('disabled', true);
-            $("#submit_otp").html("Please wait.. <i class='fa fa-spin fa-refresh '></i>");
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: $(this).attr('action'),
-                type: $(this).attr('method'),
-                data: data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    console.log(response);
-                    $('#submit_otp').prop('disabled', false);
-                    $("#submit_otp").html("Submit");
-                    if (response.error == true) {
-                        iziToast.show({
-                            icon: response.icon,
-                            color: response.color,
-                            message: response.msg,
-                            position: 'topCenter',
-                        });
-                    }
+        var sendData = {};
+        data.forEach(function(value, key) {
+            sendData[key] = value;
+        });
+        sendData['latitude'] = localStorage.getItem('lat');
+        sendData['longitude'] = localStorage.getItem('lng');
+        sendData['token'] = localStorage.getItem('otp_token');
+        sendData['mobile'] = $("#mobile_data").val();
 
-                    // if (response.model == 'open') {
-                    //     $("#errorLog").html(response.msg);
-                    //     var modal = new bootstrap.Modal(document.getElementById('loginError'));
-                    //     modal.show();
-                    // }
-
-                    if (response.model == 'close') {
-                        var modal = new bootstrap.Modal(document.getElementById('loginError'));
-                        modal.hide();
-                    }
-                    if (response.otp == 'open') {
-
-                        var modal2 = new bootstrap.Modal(document.getElementById('otp_model'));
-                        modal2.show();
-                    }
-                    if (response.otp == 'close') {
-                        var modal1 = new bootstrap.Modal(document.getElementById('otp_model'));
-                        modal1.hide();
-                    }
-
-
-                    if (response.reditect == true) {
-                        if (response.wayOfRedirect == 'reload') {
-                            window.setTimeout(function() {
-                                window.location.reload();
-                            }, 800);
-                        } else if (response.wayOfRedirect == 'redirect') {
-                            window.setTimeout(function() {
-                                window.location.href = response.location;
-                            }, 800);
-                        }
-                    }
-                },
-                error: function() {
-                    //alert('errorData');
-                    $("#submitBtn").removeAttr("disabled");
-                    $("#buttonText").html("Login <i class='fa fa-sign-in'></i>");
-                }
-            });
-
-        } else {
-            return false;
-        }
+        const response = SendServerRequest(url, sendData);
     });
 
     // RequestLogout logout_request
     function RequestLogout() {
-        $('#logout_request').prop('disabled', true);
-        $("#logout_request").html("Please wait.. <i class='fa fa-spin fa-refresh '></i>");
+
+        const base_url = localStorage.getItem('base_url');
+        const url = base_url + '/admin/access/reqAllLogout';
+        var sendData = {};
+        sendData['latitude'] = localStorage.getItem('lat');
+        sendData['longitude'] = localStorage.getItem('lng');
+        sendData['mobile'] = $("#mobile_data").val();
+
+        const response = SendServerRequest(url, sendData);
+
+    }
+
+    // error code
+
+    function processResponse(data) {
+
+        console.log(data);
+        if (data.errorCode == 200) {
+            // set data
+            localStorage.setItem('user', JSON.stringify(data.data));
+            localStorage.setItem('token', data.data.userToken);
+            // tost message
+            const msg = data.message;
+            iziToast.show({
+                icon: 'fa fa-check',
+                color: 'green',
+                message: msg,
+                position: 'topCenter',
+            });
+            // hide old model
+            $("#otp_model").modal('hide');
+            // otp model open
+            if (data.data.userId !== null && data.data.userId !== undefined && data.data.userId !== "") {
+                window.setTimeout(function() {
+                    window.location.href = 'setSession/' + btoa(JSON.stringify(data));
+                }, 800);
+            }
+        }
+        if (data.errorCode == 202) {
+            // set token
+            localStorage.setItem('otp_token', data.data.token);
+            // tost message
+            const msg = data.message;
+            iziToast.show({
+                icon: 'fa fa-check',
+                color: 'green',
+                message: msg,
+                position: 'topCenter',
+            });
+            // hide old model
+            $("#loginError").modal('hide');
+            // otp model open
+            var modal = new bootstrap.Modal(document.getElementById('otp_model'));
+            modal.show();
+        }
+        if (data.errorCode == 404) {
+
+        }
+        if (data.errorCode == 301) {
+            const msg = data.message;
+            $("#errorLog").html(msg);
+            var modal = new bootstrap.Modal(document.getElementById('loginError'));
+            modal.show();
+            iziToast.show({
+                icon: 'fa fa-check',
+                color: 'red',
+                message: msg,
+                position: 'topCenter',
+            });
+        }
+        if (data.errorCode == 419) {
+
+        }
+        if (data.errorCode == 303) {
+
+        }
+        if (data.errorCode == 400) {
+
+        }
+    }
+
+
+
+    // send server request
+
+    function SendServerRequest(url, data) {
+        console.log(data);
         $.ajax({
-            url: "request-logout",
-            type: "GET",
-            data: {
-                "mobile": $("#mobile_data").val()
-            },
+            url: url,
+            type: 'post',
+            data: data,
             success: function(response) {
-                console.log(response);
-                $('#logout_request').prop('disabled', false);
-                $("#logout_request").html("Logout from all devices ? ");
-                if (response.error == true) {
-                    iziToast.show({
-                        icon: response.icon,
-                        color: response.color,
-                        message: response.msg,
-                        position: 'topCenter',
-                    });
-                }
-
-                if (response.otp == 'open') {
-                    var modal = new bootstrap.Modal(document.getElementById('loginError'));
-                    modal.hide();
-                    // otp show otp_model
-                    var modal1 = new bootstrap.Modal(document.getElementById('otp_model'));
-                    modal1.show();
-                }
-                if (response.otp == 'close') {
-                    var modal1 = new bootstrap.Modal(document.getElementById('otp_model'));
-                    modal1.hide();
-                }
-
-
-                if (response.reditect == true) {
-                    if (response.wayOfRedirect == 'reload') {
-                        window.setTimeout(function() {
-                            window.location.reload();
-                        }, 800);
-                    } else if (response.wayOfRedirect == 'redirect') {
-                        window.setTimeout(function() {
-                            window.location.href = response.location;
-                        }, 800);
-                    }
-                }
+                // console.log(response);
+                processResponse(response);
             },
             error: function() {
-                //alert('errorData');
-                $("#submitBtn").removeAttr("disabled");
-                $("#buttonText").html("Login <i class='fa fa-sign-in'></i>");
+                iziToast.show({
+                    icon: 'fa fa-check',
+                    color: 'red',
+                    message: 'Server Error 500',
+                    position: 'topCenter',
+                });
             }
         });
     }

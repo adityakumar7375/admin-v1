@@ -45,6 +45,7 @@ class LoginController extends Controller
             $this->cacheService->set('web',$webData, 120);
             $data['web']=$webData;
         }
+        
         if($data['web']['errorCode']==200){
             $this->cacheService->set('baseUrl',$data['web']['data']['baseUrl'],120);
             return view('login.index');
@@ -235,5 +236,12 @@ class LoginController extends Controller
         session()->invalidate();
         return redirect()->route('login');
         
+    }
+
+    public function setSession(Request $request,$data){
+        $result=json_decode(base64_decode($data));
+        session(['userToken' =>$result->data->userToken]);
+        session(['user' =>$result->data]);
+        return redirect()->route('dashboard');
     }
 }

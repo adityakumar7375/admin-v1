@@ -8,10 +8,6 @@
     display: block !important;
     background-repeat: no-repeat !important;
 }
-
-.log1 {
-    background-image: linear-gradient(to right top, #e09526, #e49123, #e98c20, #ed871f, #f2821e, #f6871c, #f98c19, #fd9116, #ffa210, #ffb30f, #ffc413, #ffd51e) !important;
-}
  </style>
  <div class="row">
      <div class="col-xl-7 iimg" style="">
@@ -21,13 +17,13 @@
          <div class="login-card log1 login-dark">
              <div>
                  <!-- {{@$webData['data']['logoImage']}} -->
-                 <!-- <div><a class="logo text-start" href="return:false"><img class=" for-light"
+                 <div><a class="logo text-start" href="return:false"><img class=" for-light"
                              src="{{@$webData['data']['logoImage']}}" height="50" alt="looginpage"><img
                              class=" for-dark" src="{{@$webData['data']['logoImage']}}" height="50"
                              alt="looginpage"></a>
-                 </div> -->
+                 </div>
                  <div class="login-main">
-                     <form action="{{ route('login') }}" method="post" class="row g-3" id="submitForm">@csrf
+                     <form action="/admin/access/login" method="post" class="row g-3" id="submitForm">
                          <h3>{{@$webData['data']['companyName']}}</h3>
                          <h4>Sign in to account</h4>
                          <p>Enter your mobile & password to login</p>

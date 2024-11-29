@@ -45,6 +45,9 @@
     <link id="color" rel="stylesheet" href="{{asset('/ui')}}/assets/css/color-1.css" media="screen">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="{{asset('/ui')}}/assets/css/responsive.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -68,7 +71,7 @@
                             src="{{asset('/ui')}}/assets/images/logo/logo_light.png" alt="" /></a></div>
             </div>
             <div class="col-4 col-xl-4 page-title">
-                <h4 class="f-w-700">{{@$webData['data']['companyName']}}</h4>
+                <h4 class="f-w-700">{{$webData['data']['companyName']}}</h4>
             </div>
             <!-- Page Header Start-->
             <div class="header-wrapper col m-0">
@@ -88,7 +91,7 @@
                         </div>
                     </form>
                     <div class="header-logo-wrapper col-auto p-0">
-                        <div class="logo-wrapper"><a href="index.html"><img class="img-fluid"
+                        <div class="logo-wrapper"><a href="index"><img class="img-fluid"
                                     src="{{asset('/ui')}}/assets/images/logo/logo.png" alt=""></a></div>
                         <div class="toggle-sidebar">
                             <svg class="stroke-icon sidebar-toggle status_toggle middle">
@@ -239,149 +242,11 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="logo-icon-wrapper"><a href="index.html"><img class="img-fluid"
+                    <div class="logo-icon-wrapper"><a href="index"><img class="img-fluid"
                                 src="{{asset('/ui')}}/assets/images/logo/logo-icon.png" alt=""></a></div>
                     <nav class="sidebar-main">
                         <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
                         <div id="sidebar-menu">
-                            <!-- <ul class="sidebar-links" id="simple-bar">
-                                <li class="back-btn"><a href="index.html"><img class="img-fluid"
-                                            src="{{asset('/ui')}}/assets/images/logo/logo-icon.png" alt=""></a>
-                                    <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2"
-                                            aria-hidden="true"></i></div>
-                                </li>
-                                <li class="pin-title sidebar-main-title">
-                                    <div>
-                                        <h6>Pinned</h6>
-                                    </div>
-                                </li>
-                                <li class="sidebar-main-title">
-                                    <div>
-                                        <h6 class="lan-1">General</h6>
-                                    </div>
-                                </li>
-                                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
-                                        class="sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <svg class="stroke-icon">
-                                            <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#stroke-home"></use>
-                                        </svg>
-                                        <svg class="fill-icon">
-                                            <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#fill-home"></use>
-                                        </svg><span class="lan-3">Dashboard </span></a>
-                                    <ul class="sidebar-submenu">
-                                        <li><a class="lan-4" href="index.html">Default</a></li>
-                                        <li><a class="lan-5" href="dashboard-02.html">Project</a></li>
-                                        <li><a href="dashboard-03.html">Ecommerce</a></li>
-                                        <li><a href="dashboard-04.html">Education</a></li>
-                                    </ul>
-                                </li>
-                                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
-                                        class="sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <svg class="stroke-icon">
-                                            <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#stroke-widget"></use>
-                                        </svg>
-                                        <svg class="fill-icon">
-                                            <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#fill-widget"></use>
-                                        </svg><span class="lan-6">Widgets</span></a>
-                                    <ul class="sidebar-submenu">
-                                        <li><a href="general-widget.html">General</a></li>
-                                        <li><a href="chart-widget.html">Chart</a></li>
-                                    </ul>
-                                </li>
-                                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
-                                        class="sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <svg class="stroke-icon">
-                                            <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#stroke-layout"></use>
-                                        </svg>
-                                        <svg class="fill-icon">
-                                            <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#fill-layout"></use>
-                                        </svg><span class="lan-7">Page layout</span></a>
-                                    <ul class="sidebar-submenu">
-                                        <li><a href="box-layout.html">Boxed</a></li>
-                                        <li><a href="layout-rtl.html">RTL</a></li>
-                                        <li><a href="layout-dark.html">Dark Layout</a></li>
-                                        <li><a href="hide-on-scroll.html">Hide Nav Scroll</a></li>
-                                        <li><a href="footer-light.html">Footer Light</a></li>
-                                        <li><a href="footer-dark.html">Footer Dark</a></li>
-                                        <li><a href="footer-fixed.html">Footer Fixed</a></li>
-                                    </ul>
-                                </li>
-                                <li class="sidebar-main-title">
-                                    <div>
-                                        <h6 class="lan-8">Applications</h6>
-                                    </div>
-                                </li>
-                                <li class="sidebar-list"><i class="fa fa-thumb-tack"> </i><a
-                                        class="sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <svg class="stroke-icon">
-                                            <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#stroke-project">
-                                            </use>
-                                        </svg>
-                                        <svg class="fill-icon">
-                                            <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#fill-project"></use>
-                                        </svg><span>Project </span></a>
-                                    <ul class="sidebar-submenu">
-                                        <li><a href="projects.html">Project List</a></li>
-                                        <li><a href="projectcreate.html">Create new</a></li>
-                                    </ul>
-                                </li>
-                                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
-                                        class="sidebar-link sidebar-title link-nav" href="file-manager.html">
-                                        <svg class="stroke-icon">
-                                            <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#stroke-file"></use>
-                                        </svg>
-                                        <svg class="fill-icon">
-                                            <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#fill-file"></use>
-                                        </svg><span>File manager</span></a></li>
-                                <li class="sidebar-list"><i class="fa fa-thumb-tack"> </i><a
-                                        class="sidebar-link sidebar-title link-nav" href="kanban.html">
-                                        <svg class="stroke-icon">
-                                            <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#stroke-board"></use>
-                                        </svg>
-                                        <svg class="fill-icon">
-                                            <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#fill-board"></use>
-                                        </svg><span>kanban Board</span></a></li>
-                                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
-                                        class="sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <svg class="stroke-icon">
-                                            <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#stroke-ecommerce">
-                                            </use>
-                                        </svg>
-                                        <svg class="fill-icon">
-                                            <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#fill-ecommerce">
-                                            </use>
-                                        </svg><span>Ecommerce</span></a>
-                                    <ul class="sidebar-submenu">
-                                        <li><a href="add-products.html">Add Products</a></li>
-                                        <li><a href="product.html">Product</a></li>
-                                        <li>
-                                            <label class="badge badge-light-success">New</label><a
-                                                href="category.html">Category page</a>
-                                        </li>
-                                        <li><a href="product-page.html">Product page</a></li>
-                                        <li><a href="list-products.html">Product list</a></li>
-                                        <li><a href="payment-details.html">Payment Details</a></li>
-                                        <li><a href="order-history.html">Order History</a></li>
-                                        <li><a class="submenu-title" href="javascript:void(0)">Invoices<span
-                                                    class="sub-arrow"><i class="fa fa-angle-right"></i></span></a>
-                                            <ul class="nav-sub-childmenu submenu-content">
-                                                <li><a href="invoice-1.html">Invoice-1</a></li>
-                                                <li><a href="invoice-2.html">Invoice-2</a></li>
-                                                <li><a href="invoice-3.html">Invoice-3</a></li>
-                                                <li><a href="invoice-4.html">Invoice-4</a></li>
-                                                <li> <a href="invoice-5.html">Invoice-5</a></li>
-                                                <li><a href="invoice-6.html">Invoice-6</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="cart.html">Cart</a></li>
-                                        <li><a href="list-wish.html">Wishlist</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="pricing.html">Pricing </a></li>
-                                    </ul>
-                                </li>
-
-                            </ul> -->
-
 
                             <ul class="sidebar-links" id="simple-bar">
                                 <li class="back-btn"><a href="index.html"><img class="img-fluid"
@@ -777,12 +642,11 @@
     <script src="{{asset('/ui')}}/assets/js/chart/echart/data/symbols.js"></script>
     <script src="{{asset('/ui')}}/assets/js/chart/echart/custom.js"></script> -->
     <!-- calendar js-->
-
     <!-- Plugins JS Ends-->
     <!-- Theme js-->
     <script src="{{asset('/ui')}}/assets/js/script.js"></script>
     <script src="{{asset('/ui')}}/assets/js/script1.js"></script>
-    <script src="{{asset('/ui')}}/assets/js/theme-customizer/customizer.js"></script>
+    <!-- <script src="{{asset('/ui')}}/assets/js/theme-customizer/customizer.js"></script> -->
     <!-- Theme js-->
     <!-- <script src="{{asset('/ui')}}/assets/js/script.js"></script>
     <script src="{{asset('/ui')}}/assets/js/script1.js"></script> -->
