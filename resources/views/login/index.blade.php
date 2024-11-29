@@ -23,7 +23,7 @@
                              alt="looginpage"></a>
                  </div>
                  <div class="login-main">
-                     <form action="/admin/access/login" method="post" class="row g-3" id="submitForm">
+                     <form action="return:false" method="post" class="row g-3" id="submitForm">
                          <h3>{{@$webData['data']['companyName']}}</h3>
                          <h4>Sign in to account</h4>
                          <p>Enter your mobile & password to login</p>

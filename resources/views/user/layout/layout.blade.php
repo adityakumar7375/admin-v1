@@ -46,12 +46,13 @@
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="{{asset('/ui')}}/assets/css/responsive.css">
 
+    <link rel="stylesheet" type="text/css" href="{{asset('/ui')}}/assets/css/loader.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
 
 <body>
-    <div class="loader-wrapper">
+    <div class="waiting" style="display:none">
         <div class="loader loader-1">
             <div class="loader-outter"></div>
             <div class="loader-inner"></div>

@@ -1198,20 +1198,16 @@
 
  <script>
 function filterDashboard() {
-
-    $('#dashboardData').html("<h4>Please wait..</h4>");
+    $(".waiting").show();
+    // $('#dashboardData').html("<h4>Please wait..</h4>");
     var type = document.querySelector('.type-filter');
     var range = $('input[name="radio"]:checked').val();
     $.get('dashboard-data?type=' + type.value + '&range=' + range, function(response) {
-        $(".loader-wrapper").fadeOut("slow", function() {
-            $(this).remove();
-        });
+        $(".waiting").hide();
         $('#dashboardData').html(response);
 
     }).fail(function() {
-        $(".loader-wrapper").fadeOut("slow", function() {
-            $(this).remove();
-        });
+        $(".waiting").hide();
         console.error('Error loading the page.');
         alert('There was an error loading the page.');
     });

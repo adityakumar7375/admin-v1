@@ -39,6 +39,7 @@
     <link id="color" rel="stylesheet" href="{{asset('/ui')}}/assets/css/color-1.css" media="screen">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="{{asset('/ui')}}/assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('/ui')}}/assets/css/loader.css">
     <script>
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -70,10 +71,15 @@
     </style>
 </head>
 
-
 <body>
 
-
+    <div class="waiting" style="display:none">
+        <div class="loader loader-1">
+            <div class="loader-outter"></div>
+            <div class="loader-inner"></div>
+            <div class="loader-inner-1"></div>
+        </div>
+    </div>
     <!-- login page start-->
     <div class="container-fluid">
         @yield('content')
@@ -176,29 +182,80 @@
     <script src="{{asset('/ui')}}/assets/js/script1.js"></script>
     <script src="{{asset('/ui')}}/extra/parsley.min.js"></script>
     <script src="{{asset('/ui')}}/extra/iziToast.min.js"></script>
-    <script src="{{asset('/ui')}}/extra/tsparticles.bundle.min.js"></script>
+    <!-- <script src="{{asset('/ui')}}/extra/tsparticles.bundle.min.js"></script> -->
     <script>
     $(document).ready(function() {
         $('form').parsley();
     });
 
+    function getLocationAndStore(callback) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                // Store the lat and lng in localStorage
+                localStorage.setItem('lat', lat);
+                localStorage.setItem('lng', lng);
+                callback(true);
+            }, function(error) {
+                if (error.code === error.PERMISSION_DENIED) {
+                    alert(
+                        "Location permission denied. Please enable location access in your browser settings to proceed."
+                    );
+                } else if (error.code === error.POSITION_UNAVAILABLE) {
+                    alert("Location information is unavailable. Try again later.");
+                } else if (error.code === error.TIMEOUT) {
+                    alert("The request to get user location timed out.");
+                } else {
+                    alert("An unknown error occurred.");
+                }
+                callback(false);
+                // alert("Location access denied or failed.");
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+            callback(false);
+        }
+    }
 
     $("#submitForm").on('submit', function(e) {
-        const base_url = localStorage.getItem('base_url');
-        const url = base_url + $(this).attr('action');
-        e.preventDefault();
-        var data = new FormData(this);
-        var sendData = {};
-        data.forEach(function(value, key) {
-            sendData[key] = value;
-        });
-        sendData['latitude'] = localStorage.getItem('lat');
-        sendData['longitude'] = localStorage.getItem('lng');
+        if (localStorage.getItem('lat') == null || localStorage.getItem('lng') == null) {
+            alert('Please enable location access in your browser settings to proceed.');
+            getLocationAndStore(function(isLocationAvailable) {
+                if (isLocationAvailable) {
+                    $(".waiting").show();
+                    const base_url = localStorage.getItem('base_url');
+                    const url = base_url + "/admin/access/login";
+                    e.preventDefault();
+                    var data = new FormData(this);
+                    var sendData = {};
+                    data.forEach(function(value, key) {
+                        sendData[key] = value;
+                    });
+                    sendData['latitude'] = localStorage.getItem('lat');
+                    sendData['longitude'] = localStorage.getItem('lng');
 
-        const response = SendServerRequest(url, sendData);
-        // console.log(response);
+                    const response = SendServerRequest(url, sendData);
+                } else {
+                    alert('Please enable location access to proceed with the form submission.');
+                }
+            });
+        } else {
+            $(".waiting").show();
+            const base_url = localStorage.getItem('base_url');
+            const url = base_url + "/admin/access/login";
+            e.preventDefault();
+            var data = new FormData(this);
+            var sendData = {};
+            data.forEach(function(value, key) {
+                sendData[key] = value;
+            });
+            sendData['latitude'] = localStorage.getItem('lat');
+            sendData['longitude'] = localStorage.getItem('lng');
+
+            const response = SendServerRequest(url, sendData);
+        }
     });
-
 
     // otp mobule
 
@@ -237,7 +294,7 @@
     // error code
 
     function processResponse(data) {
-
+        $(".waiting").hide();
         console.log(data);
         if (data.errorCode == 200) {
             // set data
