@@ -49,7 +49,7 @@ class DashboardController extends Controller
         $type=$data['type'];
         $range=$data['range'];
 
-        $senddata = ['latitude'=>$this->cacheService->get('latitude'),'longitude'=>$this->cacheService->get('longitude'),'type' =>$type,'range'=>$range];
+        $senddata = ['latitude'=>$this->cacheService->get('latitude'),'longitude'=>$this->cacheService->get('longitude'),'agent'=>$this->cacheService->get('agent'),'type' =>$type,'range'=>$range];
         $webData = $this->apiService->GetDataApi('/session/dashboard',$senddata,session('userToken'));
         $data['data']= $webData;
         return view('pages.dashboard',$data);

@@ -27,7 +27,7 @@
     });
     $('#assignments-table').DataTable({
       "searchable": true,
-      "pageLength": 4,
+      "pageLength": 4000,
     });
     $('#recent-orders').DataTable({
       "searchable": true,

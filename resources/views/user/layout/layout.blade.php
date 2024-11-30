@@ -1,4 +1,4 @@
-@php $webData = Cache::get('web'); $datalogin = json_decode(Cache::get('data')); @endphp
+@php $webData = Cache::get('web'); $datalogin = (session('user')); @endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -124,36 +124,7 @@
                                     <svg id="maximize-screen">
                                         <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#full-screen"></use>
                                     </svg></span></li>
-                            <li class="onhover-dropdown">
-                                <div class="notification-box">
-                                    <svg>
-                                        <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#notification"></use>
-                                    </svg><span class="badge rounded-pill badge-primary">4 </span>
-                                </div>
-                                <div class="onhover-show-div notification-dropdown">
-                                    <h5 class="f-18 f-w-600 mb-0 dropdown-title">Notifications </h5>
-                                    <ul class="notification-box">
-                                        <li class="toast default-show-toast align-items-center border-0 fade show"
-                                            aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
-                                            <div class="d-flex justify-content-between">
-                                                <div class="toast-body d-flex p-0">
-                                                    <div class="flex-shrink-0 bg-light-primary"><img class="w-auto"
-                                                            src="{{asset('/ui')}}/assets/images/dashboard/icon/wallet.png"
-                                                            alt="Wallet"></div>
-                                                    <div class="flex-grow-1"> <a href="private-chat.html">
-                                                            <h6 class="m-0">Daily offer added</h6>
-                                                        </a>
-                                                        <p class="m-0">User-only offer added</p>
-                                                    </div>
-                                                </div>
-                                                <button class="btn-close btn-close-white shadow-none" type="button"
-                                                    data-bs-dismiss="toast" aria-label="Close"></button>
-                                            </div>
-                                        </li>
 
-                                    </ul>
-                                </div>
-                            </li>
 
                             <li>
                                 <div class="mode">
@@ -162,37 +133,13 @@
                                     </svg>
                                 </div>
                             </li>
-                            <li class="onhover-dropdown">
-                                <div class="notification-box">
-                                    <svg>
-                                        <use href="{{asset('/ui')}}/assets/svg/icon-sprite.svg#header-message"></use>
-                                    </svg><span class="badge rounded-pill badge-info">3 </span>
-                                </div>
-                                <div class="onhover-show-div notification-dropdown">
-                                    <h5 class="f-18 f-w-600 mb-0 dropdown-title">Messages </h5>
-                                    <ul class="messages">
-                                        <li class="d-flex b-light1-primary gap-2">
-                                            <div class="flex-shrink-0"><img
-                                                    src="{{asset('/ui')}}/assets/images/dashboard-2/user/1.png"
-                                                    alt="Graph"></div>
-                                            <div class="flex-grow-1"> <a href="private-chat.html">
-                                                    <h6 class="font-primary f-w-600">Hackett Yessenia</h6>
-                                                </a>
-                                                <p>Hello Miss...&#128522;</p>
-                                            </div><span>2 hours</span>
-                                        </li>
 
-                                        <li class="bg-transparent"><a class="f-w-700 btn btn-primary w-100"
-                                                href="letter-box.html">View all</a></li>
-                                    </ul>
-                                </div>
-                            </li>
 
                             <li class="profile-nav onhover-dropdown px-0 py-0">
                                 <div class="d-flex profile-media align-items-center"><img class="img-30"
                                         src="{{asset('/ui')}}/assets/images/dashboard/profile.png" alt="">
-                                    <div class="flex-grow-1"><span>{{$datalogin->data->userName}}</span>
-                                        <p class="mb-0 font-outfit">{{$datalogin->data->userId}}<i
+                                    <div class="flex-grow-1"><span>{{@$datalogin->userName}}</span>
+                                        <p class="mb-0 font-outfit">{{@$datalogin->userId}}<i
                                                 class="fa fa-angle-down"></i></p>
                                     </div>
                                 </div>
@@ -330,7 +277,7 @@
                                         </svg><span>User Management</span></a>
                                     <ul class="sidebar-submenu">
                                         <li><a href="#">Create User</a></li>
-                                        <li><a href="#">User List</a></li>
+                                        <li><a href="{{route('user.list')}}">User List</a></li>
                                         <li><a href="#">User Sessions List</a></li>
                                         <li><a href="#">User Kyc Approval List</a></li>
                                         <li><a href="#">User Bulk Action</a></li>

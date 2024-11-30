@@ -43,12 +43,12 @@ class LoginController extends Controller
             $data['web']=$webData;
         } else {
             $webData = $this->apiService->getWebsiteDetails('access/getWebsiteDetails');
-            $this->cacheService->set('web',$webData, 120);
+            $this->cacheService->set('web',$webData, 1200);
             $data['web']=$webData;
         }
         
         if(@$data['web']['errorCode']==200){
-            $this->cacheService->set('baseUrl',$data['web']['data']['baseUrl'],120);
+            $this->cacheService->set('baseUrl',$data['web']['data']['baseUrl'],1200);
             return view('login.index');
         }else{
             $this->cacheService->delete('web');
