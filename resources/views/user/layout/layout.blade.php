@@ -247,7 +247,7 @@
                                             <use href="{{asset('ui')}}/assets/svg/icon-sprite.svg#stroke-user"></use>
                                         </svg><span>User Management</span></a>
                                     <ul class="sidebar-submenu">
-                                        <li><a href="{{route('user.list')}}">Create User</a></li>
+                                        <!--<li><a href="{{route('user.list')}}">Create User</a></li>-->
                                         <li><a href="{{route('user.list')}}">User List</a></li>
                                         <li><a href="{{route('user.sessions')}}">User Sessions List</a></li>
                                         <li><a href="{{route('user.kyc.list')}}">User Kyc Approval List</a></li>
@@ -326,8 +326,7 @@
                                         <li><a href="{{route('manage.dmt.apis')}}">Manage DMT APIs</a></li>
                                         <li>
                                             <label class="badge badge-light-success">New</label><a
-                                                href="{{route('user.list')}}">DMT Customer
-                                                List</a>
+                                                href="{{route('dmt.customer.list')}}">DMT Customer List</a>
                                         </li>
                                         <li><a href="{{route('user.dmt.settings')}}">User Wise DMT Settings</a></li>
                                         <li><a href="{{route('dmt.bank.list')}}">DMT Bank List</a></li>
@@ -363,10 +362,10 @@
                                             <use href="{{asset('ui')}}/assets/svg/icon-sprite.svg#fill-user"></use>
                                         </svg><span>CMS/PAN Card</span></a>
                                     <ul class="sidebar-submenu">
-                                        <li><a href="{{route('user.list')}}">CMS Transactions </a></li>
-                                        <li><a href="{{route('user.list')}}">PAN Card Requests (Mannual) </a></li>
-                                        <li><a href="{{route('user.list')}}"> PAN Coupon Requests</a></li>
-                                        <li><a href="{{route('user.list')}}">Available Pan Coupons List</a></li>
+                                        <li><a href="{{route('cms.transactions')}}">CMS Transactions </a></li>
+                                        <li><a href="{{route('pan.card.requests')}}">PAN Card Requests (Mannual) </a></li>
+                                        <li><a href="{{route('pan.coupon.requests')}}"> PAN Coupon Requests</a></li>
+                                        <li><a href="{{route('available.pan.coupons')}}">Available Pan Coupons List</a></li>
                                     </ul>
                                 </li>
 
@@ -384,33 +383,28 @@
                                             <use href="{{asset('ui')}}/assets/svg/icon-sprite.svg#fill-ui-kits"></use>
                                         </svg><span>Admin Reports</span></a>
                                     <ul class="sidebar-submenu">
-                                        <li><a href="{{route('user.list')}}">API Wise Utility Payment Summary</a></li>
-                                        <li><a href="{{route('user.list')}}">API Wise DMT Summary</a></li>
+                                        <li><a href="{{route('payment.summary')}}">API Wise Utility Payment Summary</a></li>
+                                        <li><a href="{{route('api.dmtsummary')}}">API Wise DMT Summary</a></li>
                                         <li>
-                                            <label class="badge badge-light-warning">Trending</label><a
-                                                href="{{route('user.list')}}">API
-                                                Wise AEPS Summary</a>
+                                            <a href="{{route('api.aepssummary')}}">API Wise AEPS Summary</a>
                                         </li>
-                                        <li><a href="#l">API Wise PAYOUT Summary</a></li>
+                                        <li><a href="{{route('api.payout')}}">API Wise PAYOUT Summary</a></li>
                                         <li><a href="{{route('user.list')}}">API Wise PayIn Summary</a></li>
                                         <li>
                                             <label class="badge badge-light-success">New</label><a
-                                                href="{{route('user.list')}}">Use Wallet
-                                                Summary</a>
+                                                href="{{route('use.walletsummary')}}">Use Wallet Summary</a>
                                         </li>
-                                        <li><a href="{{route('user.list')}}">User Wise Utility Payment Summary</a></li>
-                                        <li><a href="{{route('user.list')}}">User Wise DMT Summary</a></li>
-                                        <li><a href="{{route('user.list')}}">User Wise AEPS Summary</a></li>
-                                        <li><a href="{{route('user.list')}}">User Wise PAYOUT Summary</a></li>
+                                        <li><a href="{{route('utility.paymentsummary')}}">User Wise Utility Payment Summary</a></li>
+                                        <li><a href="{{route('user.wisedmt')}}">User Wise DMT Summary</a></li>
+                                        <li><a href="{{route('user.wiseaeps')}}">User Wise AEPS Summary</a></li>
+                                        <li><a href="{{route('user.wisepayout')}}">User Wise PAYOUT Summary</a></li>
                                         <li>
                                             <label class="badge badge-light-warning">Trending</label><a
-                                                href="{{route('user.list')}}">User
-                                                Wise PayIn Summary</a>
+                                                href="{{route('user.payinsummary')}}">User Wise PayIn Summary</a>
                                         </li>
                                         <li>
                                             <label class="badge badge-light-success">New</label><a
-                                                href="{{route('user.list')}}">User Day
-                                                Book Summary</a>
+                                                href="{{route('user.booksummary')}}">User Day Book Summary</a>
                                         </li>
 
                                     </ul>
@@ -424,13 +418,14 @@
                                         <svg class="fill-icon">
                                             <use href="{{asset('ui')}}/assets/svg/icon-sprite.svg#fill-bonus-kit"></use>
                                         </svg><span>Wallet Management</span></a>
+                                        
                                     <ul class="sidebar-submenu">
-                                        <li><a href="{{route('user.list')}}">Manage User Wallet</a></li>
-                                        <li><a href="{{route('user.list')}}">Manage System Wallet</a></li>
-                                        <li><a href="{{route('user.list')}}">Pending Wallet Requests</a></li>
-                                        <li><a href="{{route('user.list')}}">Previous Wallet Requests</a></li>
-                                        <li><a href="{{route('user.list')}}">Company Bank Accounts</a></li>
-                                        <li><a href="{{route('user.list')}}">Reseller's Bank Accounts </a></li>
+                                        <li><a href="{{route('manage.user.wallet')}}">Manage User Wallet</a></li>
+                                        <li><a href="{{route('manage.system.wallet')}}">Manage System Wallet</a></li>
+                                        <li><a href="{{route('pending.wallet.requests')}}">Pending Wallet Requests</a></li>
+                                        <li><a href="{{route('previous.wallet.requests')}}">Previous Wallet Requests</a></li>
+                                        <li><a href="{{route('company.bank.accounts')}}">Company Bank Accounts</a></li>
+                                        <li><a href="{{route('reseller.bank.accounts')}}">Reseller's Bank Accounts </a></li>
                                     </ul>
                                 </li>
                                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
@@ -443,18 +438,17 @@
                                             <use href="{{asset('ui')}}/assets/svg/icon-sprite.svg#fill-animation"></use>
                                         </svg><span>Settings</span></a>
                                     <ul class="sidebar-submenu">
-                                        <li><a href="{{route('user.list')}}">Payout/ Payin Settings</a></li>
-                                        <li><a href="{{route('user.list')}}">DMT Settings</a></li>
-                                        <li><a href="{{route('user.list')}}">Recharge / BBPS Settings</a></li>
-                                        <li><a href="{{route('user.list')}}">SYSTEM Settings</a></li>
+                                        <li><a href="{{route('payout.payin.settings')}}">Payout/ Payin Settings</a></li>
+                                        <li><a href="{{route('dmt.settings')}}">DMT Settings</a></li>
+                                        <li><a href="{{route('recharge.bbps')}}">Recharge / BBPS Settings</a></li>
+                                        <li><a href="{{route('system.settings')}}">SYSTEM Settings</a></li>
 
 
                                         <li>
                                             <label class="badge badge-light-success">New</label><a
-                                                href="{{route('user.list')}}">Manage
-                                                Commission Scheme</a>
+                                                href="{{route('manage.commission.scheme')}}">Manage Commission Scheme</a>
                                         </li>
-                                        <li><a href="{{route('user.list')}}">Reseller Commission Schemes</a></li>
+                                        <li><a href="{{route('reseller.commission.schemes')}}">Reseller Commission Schemes</a></li>
                                     </ul>
                                 </li>
                                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
@@ -466,14 +460,14 @@
                                             <use href="{{asset('ui')}}/assets/svg/icon-sprite.svg#fill-icons"></use>
                                         </svg><span>Other Reports</span></a>
                                     <ul class="sidebar-submenu">
-                                        <li><a href="{{route('user.list')}}">System Wallet Summary</a></li>
-                                        <li><a href="{{route('user.list')}}">User Wise Wallet Summary</a></li>
-                                        <li><a href="{{route('user.list')}}">Sent SMS Report</a></li>
-                                        <li><a href="{{route('user.list')}}">Manage SMS APIs</a></li>
-                                        <li><a href="{{route('user.list')}}">Manage SMS Templates</a></li>
-                                        <li><a href="{{route('user.list')}}">Dispute Report</a></li>
+                                        <li><a href="{{route('system.wallet.summary')}}">System Wallet Summary</a></li>
+                                        <li><a href="{{route('user.wise.wallet')}}">User Wise Wallet Summary</a></li>
+                                        <li><a href="{{route('sent.sms.report')}}">Sent SMS Report</a></li>
+                                        <li><a href="{{route('manage.sms.apis')}}">Manage SMS APIs</a></li>
+                                        <li><a href="{{route('manage.sms.templates')}}">Manage SMS Templates</a></li>
+                                        <li><a href="{{route('dispute.report')}}">Dispute Report</a></li>
                                     </ul>
-                                </li>
+                                </li> 
 
 
                             </ul>

@@ -9,6 +9,11 @@ use App\Http\Controllers\Administrator\RechargeController;
 use App\Http\Controllers\Administrator\PayoutController;
 use App\Http\Controllers\Administrator\MoneyTransaferController;
 use App\Http\Controllers\Administrator\AepsController;
+use App\Http\Controllers\Administrator\PancardController;
+use App\Http\Controllers\Administrator\AdminreportsController;
+use App\Http\Controllers\Administrator\WalletmanagementController;
+use App\Http\Controllers\Administrator\SettingsController;
+use App\Http\Controllers\Administrator\OtherreportsController;
 use App\Http\Controllers\DashboardController;
 
 Route::post('/save-location', [LoginController::class, 'saveLocation']);
@@ -49,7 +54,7 @@ Route::middleware('check.session')->group(function () {
     Route::get('/circle/based/api', [RechargeController::class, 'circle_based_api'])->name('circle.based.api');
     Route::get('/sponsor/distributor', [RechargeController::class, 'sponsor_distributor'])->name('sponsor.distributor');
     Route::get('/bbps/api', [RechargeController::class, 'bbps_api'])->name('bbps.api');
-    Route::get('/back/upapi', [RechargeController::class, 'back_up_api'])->name('back.up.api');
+    Route::get('/backupapi', [RechargeController::class, 'back_up_api'])->name('back.up.api');
 
 
 ////  PayoutController----------------------------------------------------------
@@ -79,6 +84,7 @@ Route::middleware('check.session')->group(function () {
     Route::get('/manage/dmtapis', [MoneyTransaferController::class, 'manage_dmt_apis'])->name('manage.dmt.apis');
     Route::get('/user/dmt/settings', [MoneyTransaferController::class, 'user_dmt_settings'])->name('user.dmt.settings');
     Route::get('/dmt/banklist', [MoneyTransaferController::class, 'dmt_bank_list'])->name('dmt.bank.list');
+    Route::get('/dmt/customer/list', [MoneyTransaferController::class, 'dmt_customer_list'])->name('dmt.customer.list');
 
 ///  AepsController-----------------------------------------------------------------------------------------------------
 
@@ -87,6 +93,90 @@ Route::middleware('check.session')->group(function () {
     Route::get('/aeps/banklist', [AepsController::class, 'aeps_bank_list'])->name('aeps.bank.list');
     Route::get('/aeps/device/list', [AepsController::class, 'aeps_device_list'])->name('aeps.device.list');
     Route::get('/aeps/settings', [AepsController::class, 'wise_aeps_settings'])->name('wise.aeps.settings');
+
+
+// PancardController--------------------------------------------------------------------------------------
+
+
+
+Route::get('/cms/transactions', [PancardController::class, 'cms_transactions'])->name('cms.transactions');
+Route::get('/pancard/requests', [PancardController::class, 'pan_card_requests'])->name('pan.card.requests');
+Route::get('/pan/coupon', [PancardController::class, 'pan_coupon_requests'])->name('pan.coupon.requests');
+Route::get('/available/pancoupons', [PancardController::class, 'available_pan_coupons'])->name('available.pan.coupons');
+
+
+
+//  AdminreportsController----------------------- 
+
+
+
+Route::get('/payment/summary', [AdminreportsController::class, 'payment_summary'])->name('payment.summary');
+Route::get('/api/dmtsummary', [AdminreportsController::class, 'api_dmtsummary'])->name('api.dmtsummary');
+Route::get('/api/aepssummary', [AdminreportsController::class, 'api_aepssummary'])->name('api.aepssummary');
+Route::get('/api/payout', [AdminreportsController::class, 'api_payout'])->name('api.payout');
+Route::get('/use/walletsummary', [AdminreportsController::class, 'use_walletsummary'])->name('use.walletsummary');
+Route::get('/utility/paymentsummary', [AdminreportsController::class, 'utility_paymentsummary'])->name('utility.paymentsummary');
+Route::get('/user/wisedmt', [AdminreportsController::class, 'user_wisedmt'])->name('user.wisedmt');
+Route::get('/user/wiseaeps', [AdminreportsController::class, 'user_wiseaeps'])->name('user.wiseaeps');
+Route::get('/user/wisepayout', [AdminreportsController::class, 'user_wisepayout'])->name('user.wisepayout');
+Route::get('/user/payinsummary', [AdminreportsController::class, 'user_payinsummary'])->name('user.payinsummary');
+Route::get('/user/booksummary', [AdminreportsController::class, 'user_booksummary'])->name('user.booksummary');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////WalletmanagementController -------------
+
+
+Route::get('/manage/userwallet', [WalletmanagementController::class, 'manage_user_wallet'])->name('manage.user.wallet');
+Route::get('/pending/walletrequests', [WalletmanagementController::class, 'pending_wallet_requests'])->name('pending.wallet.requests');
+Route::get('/previous/wallet/requests', [WalletmanagementController::class, 'previous_wallet_requests'])->name('previous.wallet.requests');
+Route::get('/company/bankaccounts', [WalletmanagementController::class, 'company_bank_accounts'])->name('company.bank.accounts');
+Route::get('/reseller/bank/accounts', [WalletmanagementController::class, 'reseller_bank_accounts'])->name('reseller.bank.accounts');
+Route::get('/manage/systemwallet', [WalletmanagementController::class, 'manage_system_wallet'])->name('manage.system.wallet');
+
+
+
+
+///SettingsController
+
+
+
+Route::get('/payout/payinsettings', [SettingsController::class, 'payout_payin_settings'])->name('payout.payin.settings');
+Route::get('/dmt/settings', [SettingsController::class, 'dmt_settings'])->name('dmt.settings');
+Route::get('/recharge/bbps', [SettingsController::class, 'recharge_bbps'])->name('recharge.bbps');
+Route::get('/systemsettings', [SettingsController::class, 'system_settings'])->name('system.settings');
+Route::get('/manage/commission/scheme', [SettingsController::class, 'manage_commission_scheme'])->name('manage.commission.scheme');
+Route::get('/reseller/commissionschemes', [SettingsController::class, 'reseller_commission_schemes'])->name('reseller.commission.schemes');
+
+
+
+
+// OtherreportsController---------------------------------------------------------------------------------------------------
+
+
+Route::get('/system/wallet/summary', [OtherreportsController::class, 'system_wallet_summary'])->name('system.wallet.summary');
+Route::get('/user/wise/wallet', [OtherreportsController::class, 'user_wise_wallet'])->name('user.wise.wallet');
+Route::get('/sent/sms/report', [OtherreportsController::class, 'sent_sms_report'])->name('sent.sms.report');
+Route::get('/manage/sms/apis', [OtherreportsController::class, 'manage_sms_apis'])->name('manage.sms.apis');
+Route::get('/manage/sms/templates', [OtherreportsController::class, 'manage_sms_templates'])->name('manage.sms.templates');
+Route::get('/disputereport', [OtherreportsController::class, 'dispute_report'])->name('dispute.report');
+
+
+
+
+
 
 
     

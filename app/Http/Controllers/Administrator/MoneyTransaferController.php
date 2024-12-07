@@ -39,6 +39,13 @@ class MoneyTransaferController extends Controller
 
 
 
+         public function dmt_customer_list(Request $request){
+             return view('user.money.list');
+          }
+
+
+
+
 
 
 

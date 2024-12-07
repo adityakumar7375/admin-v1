@@ -62,7 +62,7 @@ class RechargeController extends Controller
 
 
       public function back_up_api(Request $request){
-         return view('user.recharge.upapi');
+         return view('user.recharge.backupapi');
     }
 
 
