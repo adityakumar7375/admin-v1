@@ -54,6 +54,13 @@
     .parsley-required {
         color: red;
     }
+
+    .dashboard-4 .assignments-table table tbody tr td:last-child,
+    .dashboard-4 .assignments-table table tbody tr td:first-child {
+        padding-left: 0px;
+        padding-right: 0px;
+        text-align: center;
+    }
     </style>
 </head>
 
@@ -247,7 +254,7 @@
                                             <use href="{{asset('ui')}}/assets/svg/icon-sprite.svg#stroke-user"></use>
                                         </svg><span>User Management</span></a>
                                     <ul class="sidebar-submenu">
-                                        <li><a href="{{route('user.list')}}">Create User</a></li>
+                                        <!-- <li><a href="{{route('user.list')}}">Create User</a></li> -->
                                         <li><a href="{{route('user.list')}}">User List</a></li>
                                         <li><a href="{{route('user.sessions')}}">User Sessions List</a></li>
                                         <li><a href="{{route('user.kyc.list')}}">User Kyc Approval List</a></li>
@@ -544,6 +551,34 @@
         </div>
     </div>
 
+    <div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="loginError" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content ">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Warning</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-toggle-wrapper text-center">
+                        <ul class="modal-img">
+                            <li> <img src="{{asset('/ui')}}/assets/images/gif/danger.gif" alt="alarm"></li>
+                        </ul>
+                        <h4> Are you sure?</h4>
+                        <p>You won't be able to revert this!</p>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-danger" id="logout_request" type="button">Delete</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <!-- otp model -->
 
 
@@ -630,6 +665,19 @@
             role_filter: $("#role_filter").val(),
             status_filter: $("#status_filter").val(),
             filter_mobile: $("#filter_mobile").val(),
+            sponsorMobile: $("#sponsorMobile").val(),
+            limit: p.limit,
+            sort: p.sort,
+            order: p.order,
+            offset: p.offset,
+            search: p.search
+        };
+    }
+
+
+    function sessionQueryParams(p) {
+        return {
+
             limit: p.limit,
             sort: p.sort,
             order: p.order,
@@ -833,6 +881,24 @@
             }
         });
 
+    }
+
+
+
+
+
+    // list data
+
+    function getRowData(button) {
+        const row = button.closest('tr');
+        const cells = row.getElementsByTagName('td');
+        let rowData = [];
+        for (let i = 1; i < cells.length; i++) {
+            rowData.push(cells[i].textContent);
+        }
+        console.log(rowData);
+        var modal = new bootstrap.Modal(document.getElementById('delete'));
+        modal.show();
     }
     </script>
 </body>
