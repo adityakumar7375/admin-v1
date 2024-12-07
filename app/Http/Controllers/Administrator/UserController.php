@@ -61,7 +61,7 @@ class UserController extends Controller
             'mobileNumber' =>$val['filter_mobile']??'',
             'count'=>$val['limit'],
             'userRole'=>$val['role_filter']??'',
-            'sponsorMobile'=>"",
+            'sponsorMobile'=>$val['sponsorMobile']??'',
             'startDate'=>"",
             'endDate'=>"",
             'accountStatus'=>$val['status_filter']??'',
@@ -153,6 +153,111 @@ class UserController extends Controller
 
     
     }
+
+
+    // start getSessionList
+
+    
+    public function getSessionList(Request $request)
+    {
+
+        $val=$request->all();
+
+        $senddata = [
+            'latitude'=>$this->cacheService->get('latitude'),
+            'longitude'=>$this->cacheService->get('longitude'),
+            'agent'=>$this->cacheService->get('agent'),
+            'userMobile' =>$val['filter_mobile']??'',
+            'count'=>$val['limit'],
+            'parentMobile'=>$val['parentMobile']??'',
+            'loginMode'=>$val['loginMode']??'',
+            'sessionStatus'=>"",
+            'accountStatus'=>$val['status_filter']??'',
+            'offset'=>$val['offset']
+        ];
+        $webData = $this->apiService->GetDataApi('/session/getSessionList',$senddata,session('userToken'));
+
+        
+        $total=$webData['data']['count'];
+        $bulkData = array();
+        $bulkData['total'] = $total;
+        $listData = array();
+        $tempRow = array();
+        $i=0;
+        if($total>0){
+            
+            foreach($webData['data']['records'] as $rows){
+                $tempRow['id'] = $i++;
+                
+                $tempRow['action'] = '
+                    <div class="dropdown icon-dropdown">
+                         <button class="btn dropdown-toggle" id="userdropdown'.$i.'" type="button" data-bs-toggle="dropdown"
+                             aria-expanded="false">
+                             <i class="icon-more-alt"></i>
+                         </button>
+                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown'.$i.'">
+                             <a class="dropdown-item" href="#" onclick="getRowData(this)">Delete User </a>
+                         </div>
+                    </div>
+                ';
+                $tempRow['userID'] = $rows['UserID'];
+                $tempRow['userName'] = $rows['userName'];
+                $tempRow['userMobile'] = $rows['userMobile'];
+                $tempRow['SessionID'] = $rows['SessionID'];
+                $tempRow['userIP'] = $rows['userIP'];
+                $tempRow['userLatLong'] = $rows['userLatLong'];
+                $tempRow['loginMode'] = $rows['loginMode'];
+                // $tempRow['status'] = $rows['status'];
+                if($rows['is_active']==true){
+                    $tempRow['is_active'] = '
+                    <div class="form-check form-switch form-check-inline">
+                        <input class="form-check-input switch-success check-size" type="checkbox" role="switch" checked="">
+                    </div>
+                    ';
+                }else{
+                    $tempRow['is_active'] = '
+                    <div class="form-check form-switch form-check-inline">
+                        <input class="form-check-input switch-warning check-size" type="checkbox" role="switch" >
+                    </div>
+                    ';
+                }
+                
+                $tempRow['loginAgent'] = $rows['loginAgent'];
+                $tempRow['logoutVia'] = $rows['logoutVia'];
+        
+                $tempRow['logoutAgent'] = $rows['logoutAgent'];
+                $tempRow['created_at'] = $rows['created_at'];
+                $listData[] = $tempRow;
+            }
+        }
+
+        $bulkData['rows'] = $listData;   
+        // return (json_encode($bulkData));
+        return response()->json($bulkData);
+
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // end getSessionList
 
 
 

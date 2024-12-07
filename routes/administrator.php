@@ -38,6 +38,7 @@ Route::middleware('check.session')->group(function () {
     Route::get('/user/bulk', [UserController::class, 'user_bulk'])->name('user.bulk');
 
     Route::get('/users/list', [UserController::class, 'list']);
+    Route::get('/users/getSessionList', [UserController::class, 'getSessionList']);
 
 
 

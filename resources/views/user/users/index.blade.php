@@ -79,15 +79,15 @@
      </div>
      <div class="col-xl-12 col-md-12 proorder-md-4">
          <div class="card">
-             <div class="card-header card-no-border pb-0">
+             <div class="card-header ">
                  <div class="row">
-                     <div class="col-sm-3">
+                     <div class="col-sm-2">
                          <h4>User List</h4>
                      </div>
-                     <div class="col-sm-9">
+                     <div class="col-sm-10">
                          <div class="row">
 
-                             <div class="col-4">
+                             <div class="col-3">
                                  <select class="form-select" id="role_filter" onchange="FilterData()">
                                      <option selected="" disabled="" value="">Select Role</option>
                                      @foreach($data['role'] as $key=>$value)
@@ -96,7 +96,7 @@
                                  </select>
 
                              </div>
-                             <div class="col-4">
+                             <div class="col-3">
                                  <select class="form-select" id="status_filter" onchange="FilterData()">
                                      <option selected="" disabled="" value="">Select Status</option>
                                      @foreach($data['status'] as $key=>$value)
@@ -105,9 +105,13 @@
                                  </select>
 
                              </div>
-                             <div class="col-4">
+                             <div class="col-3">
                                  <input class="form-control" id="filter_mobile" onkeyup="FilterData()" type="tel"
                                      placeholder="Mobile">
+                             </div>
+                             <div class="col-3">
+                                 <input class="form-control" id="sponsorMobile" onkeyup="FilterData()" type="tel"
+                                     placeholder="Sponsor Mobile">
                              </div>
 
                          </div>
@@ -121,7 +125,7 @@
                          data-click-to-select="true" data-side-pagination="server" data-pagination="true"
                          data-page-list="[5, 10, 20, 50, 100, 200]" data-search="false" data-show-columns="true"
                          data-show-refresh="true" data-trim-on-search="false" data-sort-name="id" data-sort-order="desc"
-                         data-mobile-responsive="true" data-toolbar="" data-show-export="false" data-page-size="5"
+                         data-mobile-responsive="true" data-toolbar="" data-show-export="false" data-page-size="10"
                          data-maintain-selected="true" data-export-types='["txt","excel"]'
                          data-query-params="userQueryParams">
                          <thead>
