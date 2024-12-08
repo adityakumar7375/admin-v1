@@ -81,14 +81,14 @@
          <div class="card">
              <div class="card-header ">
                  <div class="row">
-                     <div class="col-sm-2">
+                     <div class="col-sm-12">
                          <h4>User List</h4>
                      </div>
-                     <div class="col-sm-10">
+                     <div class="col-sm-9">
                          <div class="row">
 
                              <div class="col-3">
-                                 <select class="form-select" id="role_filter" onchange="FilterData()">
+                                 <select class="form-select" id="role_filter">
                                      <option selected="" disabled="" value="">Select Role</option>
                                      @foreach($data['role'] as $key=>$value)
                                      <option value="{{$value}}">{{$key}}</option>
@@ -97,7 +97,7 @@
 
                              </div>
                              <div class="col-3">
-                                 <select class="form-select" id="status_filter" onchange="FilterData()">
+                                 <select class="form-select" id="status_filter">
                                      <option selected="" disabled="" value="">Select Status</option>
                                      @foreach($data['status'] as $key=>$value)
                                      <option value="{{$value}}">{{$key}}</option>
@@ -106,15 +106,17 @@
 
                              </div>
                              <div class="col-3">
-                                 <input class="form-control" id="filter_mobile" onkeyup="FilterData()" type="tel"
-                                     placeholder="Mobile">
+                                 <input class="form-control" id="filter_mobile" type="tel" placeholder="Mobile">
                              </div>
                              <div class="col-3">
-                                 <input class="form-control" id="sponsorMobile" onkeyup="FilterData()" type="tel"
-                                     placeholder="Sponsor Mobile">
+                                 <input class="form-control" id="sponsorMobile" type="tel" placeholder="Sponsor Mobile">
                              </div>
 
                          </div>
+                     </div>
+                     <div class="col-sm-3 text-right text-end">
+                         <button class="btn btn-sm btn-primary" onclick="FilterData()">Filter</button>
+                         <button class="btn btn-sm btn-danger" onclick="FilterClearData()">Clear</button>
                      </div>
                  </div>
              </div>
@@ -229,6 +231,16 @@
 
  @section('script')
  <script>
+const form = document.getElementById('formUpdareWallet');
+
+function FilterClearData() {
+    $('.table-striped').bootstrapTable('refresh');
+    $("#role_filter").val('');
+    $("#status_filter").val('');
+    $("#filter_mobile").val('');
+    $("#sponsorMobile").val('');
+}
+
 function userQueryParams(p) {
     return {
         role_filter: $("#role_filter").val(),
@@ -282,15 +294,25 @@ $("#formUpdareWallet").on('submit', function(e) {
     var data = new FormData(this);
     var sendData = {};
     data.forEach(function(value, key) {
-        sendData[key] = value;
+        if (key === 'txnPin' && !isNaN(value)) {
+            value = parseInt(value, 10).toString(36).toUpperCase();
+            sendData[key] = value;
+        } else {
+            sendData[key] = value;
+        }
+
     });
     sendData['latitude'] = localStorage.getItem('lat');
     sendData['longitude'] = localStorage.getItem('lng');
     sendData['agent'] = localStorage.getItem('agent');
-    console.log(sendData);
+    // console.log(sendData);
     const response = SendServerRequest(url, sendData);
 
 });
+
+
+
+
 
 function checkMobile(value) {
 
@@ -365,6 +387,7 @@ function ActiveOtp(id) {
 
 // ManageWallet
 function ManageWallet(button) {
+
     const row = button.closest('tr');
     const cells = row.getElementsByTagName('td');
     let rowData = [];
@@ -372,6 +395,7 @@ function ManageWallet(button) {
         rowData.push(cells[i].textContent);
     }
     console.log(rowData);
+    form.reset();
     $("#appID").val(rowData[1]);
     $("#UserName").val(rowData[3]);
     $("#MainWallet").val(rowData[5]);
