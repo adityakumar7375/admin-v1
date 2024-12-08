@@ -65,7 +65,7 @@
 </head>
 
 <body>
-    <div class="waiting" style="display:none">
+    <div class="waiting" style="display:none;z-index:999999">
         <div class="loader loader-1">
             <div class="loader-outter"></div>
             <div class="loader-inner"></div>
@@ -254,11 +254,7 @@
                                             <use href="{{asset('ui')}}/assets/svg/icon-sprite.svg#stroke-user"></use>
                                         </svg><span>User Management</span></a>
                                     <ul class="sidebar-submenu">
-<<<<<<< HEAD
-                                        <!--<li><a href="{{route('user.list')}}">Create User</a></li>-->
-=======
                                         <!-- <li><a href="{{route('user.list')}}">Create User</a></li> -->
->>>>>>> 007c32ca42d8eb71c08225a21146777128b89b2f
                                         <li><a href="{{route('user.list')}}">User List</a></li>
                                         <li><a href="{{route('user.sessions')}}">User Sessions List</a></li>
                                         <li><a href="{{route('user.kyc.list')}}">User Kyc Approval List</a></li>
@@ -374,9 +370,11 @@
                                         </svg><span>CMS/PAN Card</span></a>
                                     <ul class="sidebar-submenu">
                                         <li><a href="{{route('cms.transactions')}}">CMS Transactions </a></li>
-                                        <li><a href="{{route('pan.card.requests')}}">PAN Card Requests (Mannual) </a></li>
+                                        <li><a href="{{route('pan.card.requests')}}">PAN Card Requests (Mannual) </a>
+                                        </li>
                                         <li><a href="{{route('pan.coupon.requests')}}"> PAN Coupon Requests</a></li>
-                                        <li><a href="{{route('available.pan.coupons')}}">Available Pan Coupons List</a></li>
+                                        <li><a href="{{route('available.pan.coupons')}}">Available Pan Coupons List</a>
+                                        </li>
                                     </ul>
                                 </li>
 
@@ -394,7 +392,8 @@
                                             <use href="{{asset('ui')}}/assets/svg/icon-sprite.svg#fill-ui-kits"></use>
                                         </svg><span>Admin Reports</span></a>
                                     <ul class="sidebar-submenu">
-                                        <li><a href="{{route('payment.summary')}}">API Wise Utility Payment Summary</a></li>
+                                        <li><a href="{{route('payment.summary')}}">API Wise Utility Payment Summary</a>
+                                        </li>
                                         <li><a href="{{route('api.dmtsummary')}}">API Wise DMT Summary</a></li>
                                         <li>
                                             <a href="{{route('api.aepssummary')}}">API Wise AEPS Summary</a>
@@ -405,7 +404,8 @@
                                             <label class="badge badge-light-success">New</label><a
                                                 href="{{route('use.walletsummary')}}">Use Wallet Summary</a>
                                         </li>
-                                        <li><a href="{{route('utility.paymentsummary')}}">User Wise Utility Payment Summary</a></li>
+                                        <li><a href="{{route('utility.paymentsummary')}}">User Wise Utility Payment
+                                                Summary</a></li>
                                         <li><a href="{{route('user.wisedmt')}}">User Wise DMT Summary</a></li>
                                         <li><a href="{{route('user.wiseaeps')}}">User Wise AEPS Summary</a></li>
                                         <li><a href="{{route('user.wisepayout')}}">User Wise PAYOUT Summary</a></li>
@@ -429,14 +429,17 @@
                                         <svg class="fill-icon">
                                             <use href="{{asset('ui')}}/assets/svg/icon-sprite.svg#fill-bonus-kit"></use>
                                         </svg><span>Wallet Management</span></a>
-                                        
+
                                     <ul class="sidebar-submenu">
                                         <li><a href="{{route('manage.user.wallet')}}">Manage User Wallet</a></li>
                                         <li><a href="{{route('manage.system.wallet')}}">Manage System Wallet</a></li>
-                                        <li><a href="{{route('pending.wallet.requests')}}">Pending Wallet Requests</a></li>
-                                        <li><a href="{{route('previous.wallet.requests')}}">Previous Wallet Requests</a></li>
+                                        <li><a href="{{route('pending.wallet.requests')}}">Pending Wallet Requests</a>
+                                        </li>
+                                        <li><a href="{{route('previous.wallet.requests')}}">Previous Wallet Requests</a>
+                                        </li>
                                         <li><a href="{{route('company.bank.accounts')}}">Company Bank Accounts</a></li>
-                                        <li><a href="{{route('reseller.bank.accounts')}}">Reseller's Bank Accounts </a></li>
+                                        <li><a href="{{route('reseller.bank.accounts')}}">Reseller's Bank Accounts </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
@@ -457,9 +460,11 @@
 
                                         <li>
                                             <label class="badge badge-light-success">New</label><a
-                                                href="{{route('manage.commission.scheme')}}">Manage Commission Scheme</a>
+                                                href="{{route('manage.commission.scheme')}}">Manage Commission
+                                                Scheme</a>
                                         </li>
-                                        <li><a href="{{route('reseller.commission.schemes')}}">Reseller Commission Schemes</a></li>
+                                        <li><a href="{{route('reseller.commission.schemes')}}">Reseller Commission
+                                                Schemes</a></li>
                                     </ul>
                                 </li>
                                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
@@ -478,7 +483,7 @@
                                         <li><a href="{{route('manage.sms.templates')}}">Manage SMS Templates</a></li>
                                         <li><a href="{{route('dispute.report')}}">Dispute Report</a></li>
                                     </ul>
-                                </li> 
+                                </li>
 
 
                             </ul>
@@ -520,7 +525,7 @@
     </div>
 
     <!-- model -->
-
+    @yield('model')
     <!-- Modal-->
     <div class="modal fade" id="logOut" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="loginError" style="display: none;" aria-hidden="true">
@@ -548,42 +553,6 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="loginError" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content ">
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="logoutModalLabel">Warning</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-toggle-wrapper text-center">
-                        <ul class="modal-img">
-                            <li> <img src="{{asset('/ui')}}/assets/images/gif/danger.gif" alt="alarm"></li>
-                        </ul>
-                        <h4> Are you sure?</h4>
-                        <p>You won't be able to revert this!</p>
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button class="btn btn-danger" id="logout_request" type="button">Delete</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- otp model -->
-
-
-
-
-
-
 
 
 
@@ -636,6 +605,7 @@
 
     <script src="{{asset('/ui')}}/extra/parsley.min.js"></script>
     <script src="{{asset('/ui')}}/extra/iziToast.min.js"></script>
+    <script src="{{asset('/ui')}}/assets/js/sweet-alert/sweetalert.min.js"></script>
 
     <!-- Theme js-->
     <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
@@ -656,35 +626,6 @@
         $('.table-striped').bootstrapTable('refresh');
     }
 
-
-
-    function userQueryParams(p) {
-        return {
-            role_filter: $("#role_filter").val(),
-            status_filter: $("#status_filter").val(),
-            filter_mobile: $("#filter_mobile").val(),
-            sponsorMobile: $("#sponsorMobile").val(),
-            limit: p.limit,
-            sort: p.sort,
-            order: p.order,
-            offset: p.offset,
-            search: p.search
-        };
-    }
-
-
-    function sessionQueryParams(p) {
-        return {
-
-            limit: p.limit,
-            sort: p.sort,
-            order: p.order,
-            offset: p.offset,
-            search: p.search
-        };
-    }
-    </script>
-    <script>
     function LogOut() {
         // logOut
         var modal = new bootstrap.Modal(document.getElementById('logOut'));
@@ -698,61 +639,6 @@
         $('form').parsley();
     });
 
-    $("#submitForm").on('submit', function(e) {
-        $(".waiting").show();
-
-        var isValid = true;
-        $("input[required]").each(function() {
-            if ($(this).val().trim() === "") {
-                $(this).addClass("is-invalid");
-                isValid = false;
-            } else {
-                $(this).removeClass("is-invalid");
-            }
-        });
-
-        if (!isValid) {
-            $(".waiting").hide();
-            return;
-        }
-
-        const base_url = localStorage.getItem('base_url');
-        const url = base_url + "/admin/session/addUser";
-        e.preventDefault();
-        var data = new FormData(this);
-        var sendData = {};
-        data.forEach(function(value, key) {
-            sendData[key] = value;
-        });
-        sendData['latitude'] = localStorage.getItem('lat');
-        sendData['longitude'] = localStorage.getItem('lng');
-        sendData['agent'] = localStorage.getItem('agent');
-        // console.log(sendData);
-        const response = SendServerRequest(url, sendData);
-    });
-
-    function checkMobile(value) {
-
-        var mobile = value.replace(/\D/g, '');
-        if (mobile.length === 10) {
-
-            const base_url = localStorage.getItem('base_url');
-            const url = base_url + '/admin/session/checkUser';
-            var sendData = {};
-            sendData['mobileNumber'] = mobile;
-            sendData['agent'] = localStorage.getItem('agent');
-            const response = SendServerRequest(url, sendData);
-
-        } else if (mobile.length > 10) {
-            iziToast.show({
-                icon: 'fa fa-check',
-                color: 'red',
-                message: 'Invalid Mobile Number',
-                position: 'topCenter',
-            });
-        }
-    }
-
     // error code
 
     function processResponse(data) {
@@ -760,6 +646,11 @@
         console.log(data);
         const msg = data.message;
         if (data.errorCode == 200) {
+            // hide model
+            var modal = bootstrap.Modal.getInstance(document.getElementById('updatewallet'));
+            modal.hide();
+
+            // 2
             $('.table-striped').bootstrapTable('refresh');
             $('#submitForm')[0].reset();
             const msg = data.message;
@@ -824,6 +715,7 @@
 
     function SendServerRequest(url, data) {
         console.log(data);
+        $(".waiting").show();
         $.ajax({
             url: url,
             type: 'POST',
@@ -837,12 +729,7 @@
                 processResponse(response);
             },
             error: function(xhr, status, error) {
-                // iziToast.show({
-                //     icon: 'fa fa-check',
-                //     color: 'red',
-                //     message: 'Server Error 500',
-                //     position: 'topCenter',
-                // });
+                $('.table-striped').bootstrapTable('refresh');
                 $(".waiting").hide();
                 if (xhr.status === 400) {
                     // Handle 400 - Bad Request
@@ -881,24 +768,41 @@
 
     }
 
+    // confirmData
 
-
-
-
-    // list data
-
-    function getRowData(button) {
-        const row = button.closest('tr');
-        const cells = row.getElementsByTagName('td');
-        let rowData = [];
-        for (let i = 1; i < cells.length; i++) {
-            rowData.push(cells[i].textContent);
-        }
-        console.log(rowData);
-        var modal = new bootstrap.Modal(document.getElementById('delete'));
-        modal.show();
+    function confirmData(url, sendData) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const response = SendServerRequest(url, sendData);
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelled",
+                    text: "Your imaginary file is safe :)",
+                    icon: "error"
+                });
+            }
+        });
     }
     </script>
+    @yield('script')
 </body>
 
 </html>

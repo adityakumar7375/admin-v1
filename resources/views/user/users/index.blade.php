@@ -162,6 +162,221 @@
      </div>
 
  </div>
+ @endsection
+
+ @section('model')
+ <div class="modal fade" id="updatewallet" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="loginError" style="display: none;" aria-hidden="true">
+     <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content ">
+
+             <div class="modal-header">
+                 <h5 class="modal-title" id="logoutModalLabel">Edit Wallet</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <form id="formUpdareWallet" method="post" action="return:false" class="p-2">
+                 <div class="modal-body row">
 
 
+                     <div class="mb-3 col-6">
+                         <label for="modalName" class="form-label">Name</label>
+                         <input type="text" readonly class="form-control" name="name" id="UserName">
+                         <input type="hidden" readonly class="form-control" name="appID" id="appID">
+                     </div>
+                     <div class="mb-3 col-6">
+                         <label for="modalName" class="form-label">Main Wallet</label>
+                         <input type="text" readonly class="form-control" name="mainwallet" id="MainWallet">
+                     </div>
+
+                     <div class="mb-3 col-12">
+                         <!-- <label for="modalName" class="form-label">Main Wallet</label> -->
+                         <div class="radio-form">
+                             <div class="form-check">
+                                 <input class="form-check-input" id="flexRadioDefault1" type="radio" name="txnType"
+                                     required="" value="credit">
+                                 <label class="form-check-label" for="flexRadioDefault1">Credit</label>
+                             </div>
+                             <div class="form-check">
+                                 <input class="form-check-input" id="flexRadioDefault2" type="radio" name="txnType"
+                                     checked="" required="" value="debit">
+                                 <label class="form-check-label" for="flexRadioDefault2">Debit</label>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="mb-3 col-12">
+                         <label for="modalName" class="form-label">Enter Amount</label>
+                         <input type="text" class="form-control" id="Amount" name="amount">
+                     </div>
+                     <div class="mb-3 col-12">
+                         <label for="modalName" class="form-label">Enter Pin</label>
+                         <input type="text" class="form-control" id="txnPin" name="txnPin">
+                     </div>
+
+
+
+
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                     <button class="btn btn-success" id="logout_request" type="submit">Update</button>
+                 </div>
+             </form>
+
+         </div>
+     </div>
+ </div>
+ @endsection
+
+ @section('script')
+ <script>
+function userQueryParams(p) {
+    return {
+        role_filter: $("#role_filter").val(),
+        status_filter: $("#status_filter").val(),
+        filter_mobile: $("#filter_mobile").val(),
+        sponsorMobile: $("#sponsorMobile").val(),
+        limit: p.limit,
+        sort: p.sort,
+        order: p.order,
+        offset: p.offset,
+        search: p.search
+    };
+}
+$("#submitForm").on('submit', function(e) {
+    $(".waiting").show();
+
+    var isValid = true;
+    $("input[required]").each(function() {
+        if ($(this).val().trim() === "") {
+            $(this).addClass("is-invalid");
+            isValid = false;
+        } else {
+            $(this).removeClass("is-invalid");
+        }
+    });
+
+    if (!isValid) {
+        $(".waiting").hide();
+        return;
+    }
+
+    const base_url = localStorage.getItem('base_url');
+    const url = base_url + "/admin/session/addUser";
+    e.preventDefault();
+    var data = new FormData(this);
+    var sendData = {};
+    data.forEach(function(value, key) {
+        sendData[key] = value;
+    });
+    sendData['latitude'] = localStorage.getItem('lat');
+    sendData['longitude'] = localStorage.getItem('lng');
+    sendData['agent'] = localStorage.getItem('agent');
+    // console.log(sendData);
+    const response = SendServerRequest(url, sendData);
+});
+// submitWallet
+$("#formUpdareWallet").on('submit', function(e) {
+    const base_url = localStorage.getItem('base_url');
+    const url = base_url + "/admin/session/manageWallet";
+    e.preventDefault();
+    var data = new FormData(this);
+    var sendData = {};
+    data.forEach(function(value, key) {
+        sendData[key] = value;
+    });
+    sendData['latitude'] = localStorage.getItem('lat');
+    sendData['longitude'] = localStorage.getItem('lng');
+    sendData['agent'] = localStorage.getItem('agent');
+    console.log(sendData);
+    const response = SendServerRequest(url, sendData);
+
+});
+
+function checkMobile(value) {
+
+    var mobile = value.replace(/\D/g, '');
+    if (mobile.length === 10) {
+
+        const base_url = localStorage.getItem('base_url');
+        const url = base_url + '/admin/session/checkUser';
+        var sendData = {};
+        sendData['mobileNumber'] = mobile;
+        sendData['agent'] = localStorage.getItem('agent');
+        const response = SendServerRequest(url, sendData);
+
+    } else if (mobile.length > 10) {
+        iziToast.show({
+            icon: 'fa fa-check',
+            color: 'red',
+            message: 'Invalid Mobile Number',
+            position: 'topCenter',
+        });
+    }
+}
+
+function DeActiveStatus(id) {
+    const base_url = localStorage.getItem('base_url');
+    const url = base_url + '/admin/session/updateUserField';
+    var sendData = {};
+    sendData['appID'] = id;
+    sendData['fieldName'] = 'userStatus';
+    sendData['fieldValue'] = '0';
+    sendData['agent'] = localStorage.getItem('agent');
+    console.log(sendData);
+    confirmData(url, sendData);
+    // const response = SendServerRequest(url, sendData);
+}
+
+function ActiveStatus(id) {
+    const base_url = localStorage.getItem('base_url');
+    const url = base_url + '/admin/session/updateUserField';
+    var sendData = {};
+    sendData['appID'] = id;
+    sendData['fieldName'] = 'userStatus';
+    sendData['fieldValue'] = '1';
+    sendData['agent'] = localStorage.getItem('agent');
+    console.log(sendData);
+    confirmData(url, sendData);
+}
+
+function DeActiveOtp(id) {
+    const base_url = localStorage.getItem('base_url');
+    const url = base_url + '/admin/session/updateUserField';
+    var sendData = {};
+    sendData['appID'] = id;
+    sendData['fieldName'] = 'loginOTP';
+    sendData['fieldValue'] = '0';
+    sendData['agent'] = localStorage.getItem('agent');
+    console.log(sendData);
+    confirmData(url, sendData);
+}
+
+function ActiveOtp(id) {
+    const base_url = localStorage.getItem('base_url');
+    const url = base_url + '/admin/session/updateUserField';
+    var sendData = {};
+    sendData['appID'] = id;
+    sendData['fieldName'] = 'loginOTP';
+    sendData['fieldValue'] = '1';
+    sendData['agent'] = localStorage.getItem('agent');
+    console.log(sendData);
+    confirmData(url, sendData);
+}
+
+// ManageWallet
+function ManageWallet(button) {
+    const row = button.closest('tr');
+    const cells = row.getElementsByTagName('td');
+    let rowData = [];
+    for (let i = 1; i < cells.length; i++) {
+        rowData.push(cells[i].textContent);
+    }
+    console.log(rowData);
+    $("#appID").val(rowData[1]);
+    $("#UserName").val(rowData[3]);
+    $("#MainWallet").val(rowData[5]);
+    var modal = new bootstrap.Modal(document.getElementById('updatewallet'));
+    modal.show();
+}
+ </script>
  @endsection

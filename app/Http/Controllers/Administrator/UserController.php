@@ -88,7 +88,7 @@ class UserController extends Controller
                          </button>
                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown'.$i.'">
                              <a class="dropdown-item" href="#">Edit User </a>
-                             <a class="dropdown-item" href="#">Manage Wallet</a>
+                             <a class="dropdown-item" href="#" onclick="ManageWallet(this)" >Manage Wallet</a>
                              <a class="dropdown-item" href="#">Manage Commission Scheme</a>
                              <a class="dropdown-item" href="#">View Kyc</a>
                          </div>
@@ -106,13 +106,13 @@ class UserController extends Controller
                 if($rows['status']==true){
                     $tempRow['status'] = '
                     <div class="form-check form-switch form-check-inline">
-                        <input class="form-check-input switch-success check-size" type="checkbox" role="switch" checked="">
+                        <input class="form-check-input switch-success check-size" onchange="DeActiveStatus('.$rows['userID'].')" type="checkbox" role="switch" checked="">
                     </div>
                     ';
                 }else{
                     $tempRow['status'] = '
                     <div class="form-check form-switch form-check-inline">
-                        <input class="form-check-input switch-warning check-size" type="checkbox" role="switch" >
+                        <input class="form-check-input switch-warning check-size" onchange="ActiveStatus('.$rows['userID'].')"  type="checkbox" role="switch" >
                     </div>
                     ';
                 }
@@ -124,13 +124,13 @@ class UserController extends Controller
                 if($rows['is_otp']==true){
                     $tempRow['is_otp'] ='
                     <div class="form-check form-switch form-check-inline">
-                        <input class="form-check-input switch-success check-size" type="checkbox" role="switch" checked="">
+                        <input class="form-check-input switch-success check-size" onchange="DeActiveOtp('.$rows['userID'].')"  type="checkbox" role="switch" checked="">
                     </div>
                     ';
                 }else{
                     $tempRow['is_otp'] ='
                     <div class="form-check form-switch form-check-inline">
-                        <input class="form-check-input switch-warning check-size" type="checkbox" role="switch" >
+                        <input class="form-check-input switch-warning check-size" onchange="DeActiveOtp('.$rows['userID'].')"  type="checkbox" role="switch" >
                     </div>
                     ';
                 }
@@ -211,7 +211,7 @@ class UserController extends Controller
                 if($rows['is_active']==true){
                     $tempRow['is_active'] = '
                     <div class="form-check form-switch form-check-inline">
-                        <input class="form-check-input switch-success check-size" type="checkbox" role="switch" checked="">
+                        <input class="form-check-input switch-success check-size"  type="checkbox" role="switch" checked="">
                     </div>
                     ';
                 }else{
