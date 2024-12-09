@@ -62,6 +62,7 @@ Route::middleware('check.session')->group(function () {
 
     
     Route::get('/payout/transactions', [PayoutController::class, 'payout_transactions'])->name('payout.transactions');
+    Route::get('/payout/transactions-list', [PayoutController::class, 'transactions_list'])->name('payout.transactions-list');
     Route::get('/payin/transactions', [PayoutController::class, 'payin_transactions'])->name('payin.transactions');
     Route::get('/manage/payout/payin', [PayoutController::class, 'manage_payout_payin'])->name('manage.payout.payin');
     Route::get('/payout/beneficiarylist', [PayoutController::class, 'payout_beneficiary_list'])->name('payout.beneficiary.list');

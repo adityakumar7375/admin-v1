@@ -39,7 +39,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{asset('/ui')}}/assets/css/vendors/echart.css">
     <!-- Plugins css Ends-->
-
+    <link rel="stylesheet" type="text/css" href="{{asset('/ui')}}/assets/css/vendors/flatpickr/flatpickr.min.css">
     <!-- Bootstrap css-->
     <link rel="stylesheet" type="text/css" href="{{asset('/ui')}}/assets/css/vendors/bootstrap.css">
     <!-- App css-->
@@ -599,6 +599,10 @@
     <script src="{{asset('/ui')}}/assets/js/chart/echart/data/symbols.js"></script>
     <script src="{{asset('/ui')}}/assets/js/chart/echart/custom.js"></script> -->
     <!-- calendar js-->
+
+    <script src="{{asset('/ui')}}/assets/js/flat-pickr/flatpickr.js"></script>
+    <script src="{{asset('/ui')}}/assets/js/flat-pickr/custom-flatpickr.js"></script>
+    <script src="{{asset('/ui')}}/assets/js/height-equal.js"></script>
     <!-- Plugins JS Ends-->
     <script src="{{asset('/ui')}}/assets/js/script.js"></script>
     <script src="{{asset('/ui')}}/assets/js/script1.js"></script>
@@ -608,8 +612,8 @@
     <script src="{{asset('/ui')}}/assets/js/sweet-alert/sweetalert.min.js"></script>
 
     <!-- Theme js-->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.5/dist/bootstrap-table.min.css">
@@ -628,11 +632,25 @@
 
     function LogOut() {
         // logOut
-        var modal = new bootstrap.Modal(document.getElementById('logOut'));
-        modal.show();
+        // var modal = new bootstrap.Modal(document.getElementById('logOut'));
+        // modal.show();
+        Swal.fire({
+            title: "Confirm Logout!",
+            text: " Are you sure you want to log out?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Logout it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $(".waiting").show();
+                location.href = "{{route('logout')}}";
+            }
+        });
     }
     $(document).ready(function() {
-        // $('.select2').select2();
+        $('.select2').select2();
 
     });
     $(document).ready(function() {

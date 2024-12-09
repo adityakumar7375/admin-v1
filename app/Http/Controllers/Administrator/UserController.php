@@ -53,7 +53,13 @@ class UserController extends Controller
     {
 
         $val=$request->all();
-
+        $start='';
+        $end='';
+        if(!empty($val['range_date'])){
+            $as=explode(" to ",$val['range_date']);
+            $start=$as[0];
+            $end=$as[1];
+        }
         $senddata = [
             'latitude'=>$this->cacheService->get('latitude'),
             'longitude'=>$this->cacheService->get('longitude'),
@@ -62,15 +68,14 @@ class UserController extends Controller
             'count'=>$val['limit'],
             'userRole'=>$val['role_filter']??'',
             'sponsorMobile'=>$val['sponsorMobile']??'',
-            'startDate'=>"",
-            'endDate'=>"",
+            'startDate'=>$start,
+            'endDate'=>$end,
             'accountStatus'=>$val['status_filter']??'',
             'offset'=>$val['offset']
         ];
         $webData = $this->apiService->GetDataApi('/session/getUserList',$senddata,session('userToken'));
-
         
-        $total=$webData['data']['count'];
+        $total=$webData['data']['count']??'0';
         $bulkData = array();
         $bulkData['total'] = $total;
         $listData = array();

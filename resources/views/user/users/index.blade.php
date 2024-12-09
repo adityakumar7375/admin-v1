@@ -84,37 +84,40 @@
                      <div class="col-sm-12">
                          <h4>User List</h4>
                      </div>
-                     <div class="col-sm-9">
-                         <div class="row">
 
-                             <div class="col-3">
-                                 <select class="form-select" id="role_filter">
-                                     <option selected="" disabled="" value="">Select Role</option>
-                                     @foreach($data['role'] as $key=>$value)
-                                     <option value="{{$value}}">{{$key}}</option>
-                                     @endforeach
-                                 </select>
+                     <div class="col-sm-3">
+                         <select class="form-select" id="role_filter">
+                             <option selected="" disabled="" value="">Select Role</option>
+                             @foreach($data['role'] as $key=>$value)
+                             <option value="{{$value}}">{{$key}}</option>
+                             @endforeach
+                         </select>
 
-                             </div>
-                             <div class="col-3">
-                                 <select class="form-select" id="status_filter">
-                                     <option selected="" disabled="" value="">Select Status</option>
-                                     @foreach($data['status'] as $key=>$value)
-                                     <option value="{{$value}}">{{$key}}</option>
-                                     @endforeach
-                                 </select>
-
-                             </div>
-                             <div class="col-3">
-                                 <input class="form-control" id="filter_mobile" type="tel" placeholder="Mobile">
-                             </div>
-                             <div class="col-3">
-                                 <input class="form-control" id="sponsorMobile" type="tel" placeholder="Sponsor Mobile">
-                             </div>
-
-                         </div>
                      </div>
-                     <div class="col-sm-3 text-right text-end">
+                     <div class="col-sm-3">
+                         <select class="form-select" id="status_filter">
+                             <option selected="" disabled="" value="">Select Status</option>
+                             @foreach($data['status'] as $key=>$value)
+                             <option value="{{$value}}">{{$key}}</option>
+                             @endforeach
+                         </select>
+
+                     </div>
+                     <div class="col-sm-3">
+                         <input class="form-control" id="filter_mobile" type="tel" placeholder="Mobile">
+                     </div>
+                     <div class="col-sm-3">
+                         <input class="form-control" id="sponsorMobile" type="tel" placeholder="Sponsor Mobile">
+                     </div>
+                     <div class="col-sm-3 mt-3">
+                         <div class="input-group flatpicker-calender">
+                             <input class="form-control" id="range-date" type="date" placeholder="Select Date">
+                         </div>
+                         <!-- <input class="form-control" id="sponsorMobile" type="tel" placeholder="Date Range"> -->
+                     </div>
+
+
+                     <div class="col-sm-9 mt-3 text-right text-end">
                          <button class="btn btn-sm btn-primary" onclick="FilterData()">Filter</button>
                          <button class="btn btn-sm btn-danger" onclick="FilterClearData()">Clear</button>
                      </div>
@@ -239,6 +242,7 @@ function FilterClearData() {
     $("#status_filter").val('');
     $("#filter_mobile").val('');
     $("#sponsorMobile").val('');
+    $("#range-date").val('');
 }
 
 function userQueryParams(p) {
@@ -247,6 +251,7 @@ function userQueryParams(p) {
         status_filter: $("#status_filter").val(),
         filter_mobile: $("#filter_mobile").val(),
         sponsorMobile: $("#sponsorMobile").val(),
+        range_date: $("#range-date").val(),
         limit: p.limit,
         sort: p.sort,
         order: p.order,
