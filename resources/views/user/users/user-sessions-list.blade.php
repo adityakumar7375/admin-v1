@@ -15,15 +15,47 @@
          <div class="card">
              <div class="card-header">
                  <h4>Session List</h4>
+                  <div class="row">
+                    
+
+                     <div class="col-sm-3">
+                         <select class="form-select" id="loginMode">
+                             <option selected="" disabled="" value="">Select login Mode</option>
+                             <option>web</option>
+                             <option>app</option>
+                         </select>
+
+                     </div>
+                     <div class="col-sm-3">
+                         <select class="form-select" id="sessionStatus">
+                             <option selected="" disabled="" value="">Select Session Status</option>
+                             <option value="0">In-Active</option>
+                             <option value="1">Active</option>
+                         </select>
+
+                     </div>
+                     <div class="col-sm-3">
+                         <input class="form-control" id="filter_mobile" type="tel" placeholder="Mobile">
+                     </div>
+                     <div class="col-sm-3">
+                         <input class="form-control" id="parentMobile" type="tel" placeholder="Parent Mobile">
+                     </div>
+                     
+
+                     <div class="col-sm-12 mt-3 text-right text-end">
+                         <button class="btn btn-sm btn-primary" onclick="FilterData()">Filter</button>
+                         <button class="btn btn-sm btn-danger" onclick="FilterClearData()">Clear</button>
+                     </div>
+                 </div>
              </div>
-             <div class="card-body pt-0 assignments-table px-0">
+             <div class="card-body pt-0   px-0">
                  <div class="table-responsive theme-scrollbar p-3 pb-0 pt-0">
                      <!-- <table class="table display" id="assignments-table" style="width:100%"> -->
                      <table class="table-striped  " data-toggle="table" data-url="/users/getSessionList"
                          data-click-to-select="true" data-side-pagination="server" data-pagination="true"
                          data-page-list="[5, 10, 20, 50, 100, 200]" data-search="false" data-show-columns="true"
                          data-show-refresh="true" data-trim-on-search="false" data-sort-name="id" data-sort-order="desc"
-                         data-mobile-responsive="true" data-toolbar="" data-show-export="false" data-page-size="5"
+                         data-mobile-responsive="true" data-toolbar="" data-show-export="false" data-page-size="10"
                          data-maintain-selected="true" data-export-types='["txt","excel"]'
                          data-query-params="sessionQueryParams">
                          <thead>
@@ -93,9 +125,20 @@
 
  @section('script')
  <script>
+    function FilterClearData() {
+    $('.table-striped').bootstrapTable('refresh');
+    $("#sessionStatus").val('');
+    $("#loginMode").val('');
+    $("#filter_mobile").val('');
+    $("#parentMobile").val('');
+}
+
 function sessionQueryParams(p) {
     return {
-
+        loginMode: $("#loginMode").val(),
+        sessionStatus: $("#sessionStatus").val(),
+        filter_mobile: $("#filter_mobile").val(),
+        parentMobile: $("#parentMobile").val(),
         limit: p.limit,
         sort: p.sort,
         order: p.order,

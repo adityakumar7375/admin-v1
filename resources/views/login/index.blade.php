@@ -35,14 +35,14 @@
                          <div class="form-group">
                              <label class="col-form-label">Mobile Number</label>
                              <input class="form-control" type="number" required="" name="mobile" id="mobile_data"
-                                 placeholder="9876543210" value="9412591166">
+                                 placeholder="Enter Mobile Number" value="">
                          </div>
 
                          <div class="form-group">
                              <label class="col-form-label">Password</label>
                              <div class="form-input position-relative">
                                  <input class="form-control" type="password" name="password" required=""
-                                     placeholder="*********" value="9807544556">
+                                     placeholder="*********" value="">
                                  <!-- <div class="show-hide"><span class="show"> </span></div> -->
                              </div>
                          </div>

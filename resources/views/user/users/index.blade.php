@@ -123,7 +123,7 @@
                      </div>
                  </div>
              </div>
-             <div class="card-body pt-0 assignments-table px-0">
+             <div class="card-body pt-0  px-0">
                  <div class="table-responsive theme-scrollbar p-3 pb-0 pt-0">
                      <!-- <table class="table display" id="assignments-table" style="width:100%"> -->
                      <table class="table-striped  " data-toggle="table" data-url="/users/list"

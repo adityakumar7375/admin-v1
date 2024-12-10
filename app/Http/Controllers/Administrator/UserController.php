@@ -172,12 +172,11 @@ class UserController extends Controller
             'latitude'=>$this->cacheService->get('latitude'),
             'longitude'=>$this->cacheService->get('longitude'),
             'agent'=>$this->cacheService->get('agent'),
-            'userMobile' =>$val['filter_mobile']??'',
+            'loginMode' =>$val['loginMode']??'',
             'count'=>$val['limit'],
+            'sessionStatus'=>$val['sessionStatus']??'',
+            'filter_mobile'=>$val['filter_mobile']??'',
             'parentMobile'=>$val['parentMobile']??'',
-            'loginMode'=>$val['loginMode']??'',
-            'sessionStatus'=>"",
-            'accountStatus'=>$val['status_filter']??'',
             'offset'=>$val['offset']
         ];
         $webData = $this->apiService->GetDataApi('/session/getSessionList',$senddata,session('userToken'));

@@ -200,8 +200,8 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <p class="text-left">Getting back in touch in <b class="txt-warning">14
-                                            seconds...</b></p>
+                                    <p class="text-left" id="timer"></p>
+                                    <p id="resendbtn" style="display:none"><a href='return:false' onclick='resendOtp()'>Resend OTP</a></p>
                                 </div>
 
                                 <div class="col-12 text-end">
@@ -245,6 +245,61 @@
     $(document).ready(function() {
         $('form').parsley();
     });
+
+
+
+
+
+    let timerInterval;
+    let countdown = 60;
+    function startTimer() {
+        timerInterval = setInterval(function() {
+            countdown--;
+            document.getElementById("timer").textContent = `Resend OTP in: ${countdown} Seconds`;
+            if (countdown <= 0) {
+                clearInterval(timerInterval);
+                $("#timer").hide();
+                $("#resendbtn").show();
+            }
+        }, 1000);
+    }
+
+    function resendOtp() {
+        countdown = 60;
+        startTimer();
+        $("#timer").show();
+        $("#resendbtn").hide();
+        RequestOTP();
+    }
+
+
+
+
+
+     function RequestOTP() {
+
+        const base_url = localStorage.getItem('base_url');
+        const url = base_url + '/admin/access/resendOtp';
+        var sendData = {};
+        sendData['latitude'] = localStorage.getItem('lat');
+        sendData['longitude'] = localStorage.getItem('lng');
+        sendData['token'] = localStorage.getItem('otp_token');
+        sendData['agent'] = localStorage.getItem('agent');
+        console.log(sendData);
+        const response = SendServerRequest(url, sendData);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     function getLocationAndStore(callback) {
         if (navigator.geolocation) {
@@ -354,6 +409,7 @@
         data.forEach(function(value, key) {
             sendData[key] = value;
         });
+        
         sendData['latitude'] = localStorage.getItem('lat');
         sendData['longitude'] = localStorage.getItem('lng');
         sendData['token'] = localStorage.getItem('otp_token');
@@ -364,7 +420,7 @@
 
     // RequestLogout logout_request
     function RequestLogout() {
-
+        $(".waiting").show();
         const base_url = localStorage.getItem('base_url');
         const url = base_url + '/admin/access/reqAllLogout';
         var sendData = {};
@@ -382,26 +438,35 @@
         $(".waiting").hide();
         console.log(data);
         const msg = data.message;
+        document.getElementById('submitFormOtp').reset();
         if (data.errorCode == 200) {
             // set data
-            localStorage.setItem('user', JSON.stringify(data.data));
-            localStorage.setItem('token', data.data.userToken);
-            // tost message
-            const msg = data.message;
-            iziToast.show({
-                icon: 'fa fa-check',
-                color: 'green',
-                message: msg,
-                position: 'topCenter',
-            });
-            // hide old model
-            $("#otp_model").modal('hide');
-            // otp model open
-            if (data.data.userId !== null && data.data.userId !== undefined && data.data.userId !== "") {
-                window.setTimeout(function() {
-                    window.location.href = 'setSession/' + btoa(JSON.stringify(data));
-                }, 800);
+            if(data.data.type=='resend_otp'){
+                localStorage.setItem('otp_token', data.data.token);
+                localStorage.setItem('typeLogin', data.data.type);
+            }else{
+                localStorage.setItem('user', JSON.stringify(data.data));
+                localStorage.setItem('token', data.data.userToken);
+                // tost message
+                const msg = data.message;
+                iziToast.show({
+                    icon: 'fa fa-check',
+                    color: 'green',
+                    message: msg,
+                    position: 'topCenter',
+                });
+                // hide old model
+                $("#otp_model").modal('hide');
+                // otp model open
+                if (data.data.userId !== null && data.data.userId !== undefined && data.data.userId !== "") {
+                    window.setTimeout(function() {
+                        window.location.href = 'setSession/' + btoa(JSON.stringify(data));
+                    }, 800);
+                }
+
             }
+
+
         }
         if (data.errorCode == 202) {
             // set token
@@ -420,9 +485,16 @@
             // otp model open
             var modal = new bootstrap.Modal(document.getElementById('otp_model'));
             modal.show();
+            startTimer();
         }
         if (data.errorCode == 404) {
-
+            const msg = data.message;
+            iziToast.show({
+                icon: 'fa fa-check',
+                color: 'red',
+                message: msg,
+                position: 'topCenter',
+            });
         }
         if (data.errorCode == 301) {
             const msg = data.message;

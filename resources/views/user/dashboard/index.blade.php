@@ -1,5 +1,13 @@
  @extends('user.layout.layout')
  @section('content')
+ <style>
+    @media (max-width: 1410px) and (min-width: 1200px) {
+    .dashboard-4 .student .d-flex .flex-grow-1 > p, .dashboard-4 .student-2 .d-flex .flex-grow-1 > p, .dashboard-4 .student-3 .d-flex .flex-grow-1 > p, .dashboard-4 .student-4 .d-flex .flex-grow-1 > p {
+        display: block;
+        width: 250px;
+    }
+}
+ </style>
 
  <div class="row">
      <div class="col-md-12 project-list">
@@ -233,7 +241,7 @@
                              </div>
                          </div>
                      </div>
-                     <div class="card-body pt-0 assignments-table px-0">
+                     <div class="card-body pt-0 assignments-table--1 px-0">
                          <div class="table-responsive p-4 pt-0">
                              <table class="table  " style="width:100%">
                                  <thead>
